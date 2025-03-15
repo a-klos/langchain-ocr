@@ -31,22 +31,6 @@ class OcrApi(BaseOcrApi):
         """Initialize the instance of the class."""
         super().__init__()
         self._background_threads = []
-
-    @inject
-    async def convert_docx_post(
-        self,
-        file: Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]],
-        convert_docx_endpoint: ConvertFile2Markdown = Depends(Provide[DependencyContainer.convert_docx_endpoint]),
-    ) -> str:
-        return ""
-        
-    @inject
-    async def convert_html_post(
-        self,
-        file: Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]],
-        convert_html_endpoint: ConvertFile2Markdown = Depends(Provide[DependencyContainer.convert_html_endpoint]),
-    ) -> str:
-        return ""
     
     @inject
     async def convert_pdf_post(
@@ -56,13 +40,4 @@ class OcrApi(BaseOcrApi):
         convert_pdf_endpoint: ConvertFile2Markdown = Depends(Provide[DependencyContainer.convert_pdf_endpoint]),
     ) -> str:
         return convert_pdf_endpoint.convert2markdown(body)
-    
-    @inject
-    async def convert_pptx_post(
-        self,
-        file: Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]],
-        convert_pptx_endpoint: ConvertFile2Markdown = Depends(Provide[DependencyContainer.convert_pptx_endpoint]),
-    ) -> str:
-        return ""
-        
-    
+

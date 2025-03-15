@@ -14,10 +14,7 @@ from langchain_ollama import ChatOllama
 from langchain_openai import ChatOpenAI
 from langfuse import Langfuse
 
-from langchain_ocr.impl.api_endpoints.convert_docx_endpoint import ConvertDocxEndpoint
-from langchain_ocr.impl.api_endpoints.convert_html_endpoint import ConvertHtmlEndpoint
 from langchain_ocr.impl.api_endpoints.convert_pdf_endpoint import ConvertPdfEndpoint
-from langchain_ocr.impl.api_endpoints.convert_pptx_endpoint import ConvertPptxEndpoint
 from langchain_ocr.impl.chains.ocr_chain import OcrChain
 from langchain_ocr.impl.settings.ollama_llm_settings import OllamaSettings
 from langchain_ocr.impl.settings.openai_llm_settings import OpenAISettings
@@ -85,20 +82,5 @@ class DependencyContainer(DeclarativeContainer):
     
     convert_pdf_endpoint = Singleton(
         ConvertPdfEndpoint,
-        chain=traced_ocr_chain,
-    )
-    
-    convert_pptx_endpoint = Singleton(
-        ConvertPptxEndpoint,
-        chain=traced_ocr_chain,
-    )
-    
-    convert_docx_endpoint = Singleton(
-        ConvertDocxEndpoint,
-        chain=traced_ocr_chain,
-    )
-    
-    convert_html_endpoint = Singleton(
-        ConvertHtmlEndpoint,
         chain=traced_ocr_chain,
     )
