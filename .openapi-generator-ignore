@@ -21,3 +21,20 @@
 #docs/*.md
 # Then explicitly reverse the ignore rule for a single file:
 #!docs/README.md
+
+pyproject.toml
+requirements.txt
+Dockerfile
+tests/*
+src/langchain_ocr/main.py
+src/langchain_ocr/impl/*
+README.md
+setup.cfg
+.flake8
+.gitignore
+docker-compose.yaml
+.openapi-generator/FILES
+.openapi-generator/*
+.openapi-generator
+src/langchain_ocr/security_api.py
+src/langchain_ocr/openapi_server/*

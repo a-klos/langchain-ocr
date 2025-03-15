@@ -24,7 +24,7 @@ from fastapi import (  # noqa: F401
 
 from langchain_ocr.models.extra_models import TokenModel  # noqa: F401
 from pydantic import Field, StrictBytes, StrictStr
-from typing import Tuple, Union
+from typing import Any, Tuple, Union
 from typing_extensions import Annotated
 from langchain_ocr.models.convert_pdf_post400_response import ConvertPdfPost400Response
 
@@ -41,6 +41,7 @@ for _, name, _ in pkgutil.iter_modules(ns_pkg.__path__, ns_pkg.__name__ + "."):
     responses={
         200: {"model": str, "description": "Markdown conversion successful"},
         400: {"model": ConvertPdfPost400Response, "description": "Invalid input or conversion error"},
+        500: {"description": "Internal server error"},
     },
     tags=["default"],
     summary="Convert DOCX to Markdown",
@@ -60,6 +61,7 @@ async def convert_docx_post(
     responses={
         200: {"model": str, "description": "Markdown conversion successful"},
         400: {"model": ConvertPdfPost400Response, "description": "Invalid input or conversion error"},
+        500: {"description": "Internal server error"},
     },
     tags=["default"],
     summary="Convert HTML to Markdown",
@@ -79,6 +81,7 @@ async def convert_html_post(
     responses={
         200: {"model": str, "description": "Markdown conversion successful"},
         400: {"model": ConvertPdfPost400Response, "description": "Invalid input or conversion error"},
+        500: {"description": "Internal server error"},
     },
     tags=["default"],
     summary="Convert PDF to Markdown",
@@ -98,6 +101,7 @@ async def convert_pdf_post(
     responses={
         200: {"model": str, "description": "Markdown conversion successful"},
         400: {"model": ConvertPdfPost400Response, "description": "Invalid input or conversion error"},
+        500: {"description": "Internal server error"},
     },
     tags=["default"],
     summary="Convert PPTX to Markdown",

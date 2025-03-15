@@ -5,7 +5,8 @@ info:
   title: File to Markdown Converter API
   version: 1.0.1
 servers:
-- url: /
+- description: Production server
+  url: https://api.example.com
 paths:
   /convert/pdf:
     post:
@@ -36,6 +37,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/_convert_pdf_post_400_response'
           description: Invalid input or conversion error
+        "500":
+          content:
+            application/json: {}
+          description: Internal server error
       summary: Convert PDF to Markdown
   /convert/pptx:
     post:
@@ -66,6 +71,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/_convert_pdf_post_400_response'
           description: Invalid input or conversion error
+        "500":
+          description: Internal server error
       summary: Convert PPTX to Markdown
   /convert/docx:
     post:
@@ -96,6 +103,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/_convert_pdf_post_400_response'
           description: Invalid input or conversion error
+        "500":
+          description: Internal server error
       summary: Convert DOCX to Markdown
   /convert/html:
     post:
@@ -126,6 +135,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/_convert_pdf_post_400_response'
           description: Invalid input or conversion error
+        "500":
+          description: Internal server error
       summary: Convert HTML to Markdown
 components:
   schemas:

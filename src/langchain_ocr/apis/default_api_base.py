@@ -3,7 +3,7 @@
 from typing import ClassVar, Dict, List, Tuple  # noqa: F401
 
 from pydantic import Field, StrictBytes, StrictStr
-from typing import Tuple, Union
+from typing import Any, Tuple, Union
 from typing_extensions import Annotated
 from langchain_ocr.models.convert_pdf_post400_response import ConvertPdfPost400Response
 
