@@ -57,7 +57,7 @@ class OcrApi(BaseOcrApi):
         file: Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]],
         convert_pdf_endpoint: ConvertPdfEndpoint = Depends(Provide[DependencyContainer.chat_endpoint]),
     ) -> str:
-        return ""
+        return convert_pdf_endpoint.convert2markdown(file)
     
     @inject
     async def convert_pptx_post(
