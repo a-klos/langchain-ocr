@@ -4,8 +4,8 @@ from typing import Dict, List  # noqa: F401
 import importlib
 import pkgutil
 
-from langchain_ocr.apis.default_api_base import BaseDefaultApi
-import openapi_server.impl
+from langchain_ocr.apis.ocr_api_base import BaseOcrApi
+import langchain_ocr.impl
 
 from fastapi import (  # noqa: F401
     APIRouter,
@@ -31,7 +31,7 @@ from langchain_ocr.models.convert_pdf_post400_response import ConvertPdfPost400R
 
 router = APIRouter()
 
-ns_pkg = openapi_server.impl
+ns_pkg = langchain_ocr.impl
 for _, name, _ in pkgutil.iter_modules(ns_pkg.__path__, ns_pkg.__name__ + "."):
     importlib.import_module(name)
 
@@ -51,9 +51,9 @@ async def convert_docx_post(
     file: Annotated[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]], Field(description="The DOCX file to convert.")] = Form(None, description="The DOCX file to convert."),
 ) -> str:
     """Accepts a DOCX file and returns its content as Markdown."""
-    if not BaseDefaultApi.subclasses:
+    if not BaseOcrApi.subclasses:
         raise HTTPException(status_code=500, detail="Not implemented")
-    return await BaseDefaultApi.subclasses[0]().convert_docx_post(file)
+    return await BaseOcrApi.subclasses[0]().convert_docx_post(file)
 
 
 @router.post(
@@ -71,9 +71,9 @@ async def convert_html_post(
     file: Annotated[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]], Field(description="The HTML file to convert.")] = Form(None, description="The HTML file to convert."),
 ) -> str:
     """Accepts an HTML file and returns its content as Markdown."""
-    if not BaseDefaultApi.subclasses:
+    if not BaseOcrApi.subclasses:
         raise HTTPException(status_code=500, detail="Not implemented")
-    return await BaseDefaultApi.subclasses[0]().convert_html_post(file)
+    return await BaseOcrApi.subclasses[0]().convert_html_post(file)
 
 
 @router.post(
@@ -91,9 +91,9 @@ async def convert_pdf_post(
     file: Annotated[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]], Field(description="The PDF file to convert.")] = Form(None, description="The PDF file to convert."),
 ) -> str:
     """Accepts a PDF file and returns its content as Markdown."""
-    if not BaseDefaultApi.subclasses:
+    if not BaseOcrApi.subclasses:
         raise HTTPException(status_code=500, detail="Not implemented")
-    return await BaseDefaultApi.subclasses[0]().convert_pdf_post(file)
+    return await BaseOcrApi.subclasses[0]().convert_pdf_post(file)
 
 
 @router.post(
@@ -111,6 +111,6 @@ async def convert_pptx_post(
     file: Annotated[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]], Field(description="The PPTX file to convert.")] = Form(None, description="The PPTX file to convert."),
 ) -> str:
     """Accepts a PPTX file and returns its content as Markdown."""
-    if not BaseDefaultApi.subclasses:
+    if not BaseOcrApi.subclasses:
         raise HTTPException(status_code=500, detail="Not implemented")
-    return await BaseDefaultApi.subclasses[0]().convert_pptx_post(file)
+    return await BaseOcrApi.subclasses[0]().convert_pptx_post(file)

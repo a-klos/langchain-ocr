@@ -14,7 +14,7 @@
 
 from fastapi import FastAPI
 
-from langchain_ocr.apis.default_api import router as DefaultApiRouter
+from langchain_ocr.apis.ocr_api import router as DefaultApiRouter
 
 app = FastAPI(
     title="File to Markdown Converter API",

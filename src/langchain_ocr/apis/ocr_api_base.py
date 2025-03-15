@@ -8,12 +8,12 @@ from typing_extensions import Annotated
 from langchain_ocr.models.convert_pdf_post400_response import ConvertPdfPost400Response
 
 
-class BaseDefaultApi:
+class BaseOcrApi:
     subclasses: ClassVar[Tuple] = ()
 
     def __init_subclass__(cls, **kwargs):
         super().__init_subclass__(**kwargs)
-        BaseDefaultApi.subclasses = BaseDefaultApi.subclasses + (cls,)
+        BaseOcrApi.subclasses = BaseOcrApi.subclasses + (cls,)
     async def convert_docx_post(
         self,
         file: Annotated[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]], Field(description="The DOCX file to convert.")],
