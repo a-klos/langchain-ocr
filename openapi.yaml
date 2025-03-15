@@ -1,0 +1,188 @@
+openapi: 3.0.3
+info:
+  description: |
+    An API that converts files (PDF, PPTX, DOCX, HTML) into Markdown. Clients can upload files either via multipart/form-data or by sending the raw binary  with the corresponding MIME type.
+  title: File to Markdown Converter API
+  version: 1.0.1
+servers:
+- description: Production server
+  url: https://api.example.com
+paths:
+  /convert/pdf:
+    post:
+      description: Accepts a PDF file and returns its content as Markdown.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/_convert_pdf_post_request'
+          application/pdf:
+            schema:
+              format: binary
+              type: string
+        required: true
+      responses:
+        "200":
+          content:
+            text/markdown:
+              example: |
+                # Converted Markdown from PDF
+                This is a sample markdown output.
+              schema:
+                type: string
+          description: Markdown conversion successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_convert_pdf_post_400_response'
+          description: Invalid input or conversion error
+        "500":
+          content:
+            application/json: {}
+          description: Internal server error
+      summary: Convert PDF to Markdown
+  /convert/pptx:
+    post:
+      description: Accepts a PPTX file and returns its content as Markdown.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/_convert_pptx_post_request'
+          application/vnd.openxmlformats-officedocument.presentationml.presentation:
+            schema:
+              format: binary
+              type: string
+        required: true
+      responses:
+        "200":
+          content:
+            text/markdown:
+              example: |
+                # Converted Markdown from PPTX
+                This is a sample markdown output.
+              schema:
+                type: string
+          description: Markdown conversion successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_convert_pdf_post_400_response'
+          description: Invalid input or conversion error
+        "500":
+          description: Internal server error
+      summary: Convert PPTX to Markdown
+  /convert/docx:
+    post:
+      description: Accepts a DOCX file and returns its content as Markdown.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/_convert_docx_post_request'
+          application/vnd.openxmlformats-officedocument.wordprocessingml.document:
+            schema:
+              format: binary
+              type: string
+        required: true
+      responses:
+        "200":
+          content:
+            text/markdown:
+              example: |
+                # Converted Markdown from DOCX
+                This is a sample markdown output.
+              schema:
+                type: string
+          description: Markdown conversion successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_convert_pdf_post_400_response'
+          description: Invalid input or conversion error
+        "500":
+          description: Internal server error
+      summary: Convert DOCX to Markdown
+  /convert/html:
+    post:
+      description: Accepts an HTML file and returns its content as Markdown.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/_convert_html_post_request'
+          text/html:
+            schema:
+              format: binary
+              type: string
+        required: true
+      responses:
+        "200":
+          content:
+            text/markdown:
+              example: |
+                # Converted Markdown from HTML
+                This is a sample markdown output.
+              schema:
+                type: string
+          description: Markdown conversion successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_convert_pdf_post_400_response'
+          description: Invalid input or conversion error
+        "500":
+          description: Internal server error
+      summary: Convert HTML to Markdown
+components:
+  schemas:
+    _convert_pdf_post_400_response:
+      example:
+        error: Invalid file format or conversion failed.
+      properties:
+        error:
+          example: Invalid file format or conversion failed.
+          title: error
+          type: string
+      title: _convert_pdf_post_400_response
+      type: object
+    _convert_docx_post_request:
+      properties:
+        file:
+          description: The DOCX file to convert.
+          format: binary
+          type: string
+      required:
+      - file
+      type: object
+    _convert_html_post_request:
+      properties:
+        file:
+          description: The HTML file to convert.
+          format: binary
+          type: string
+      required:
+      - file
+      type: object
+    _convert_pdf_post_request:
+      properties:
+        file:
+          description: The PDF file to convert.
+          format: binary
+          type: string
+      required:
+      - file
+      type: object
+    _convert_pptx_post_request:
+      properties:
+        file:
+          description: The PPTX file to convert.
+          format: binary
+          type: string
+      required:
+      - file
+      type: object
