@@ -21,6 +21,7 @@ from fastapi import (  # noqa: F401
     Security,
     status,
 )
+from fastapi import APIRouter, Path, Request, Response, UploadFile  # noqa: F401
 
 from langchain_ocr.models.extra_models import TokenModel  # noqa: F401
 from pydantic import Field, StrictBytes, StrictStr
@@ -88,7 +89,8 @@ async def convert_html_post(
     response_model_by_alias=True,
 )
 async def convert_pdf_post(
-    file: Annotated[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]], Field(description="The PDF file to convert.")] = Form(None, description="The PDF file to convert."),
+    body: UploadFile,
+    request: Request,
 ) -> str:
     """Accepts a PDF file and returns its content as Markdown."""
     if not BaseOcrApi.subclasses:

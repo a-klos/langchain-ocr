@@ -24,6 +24,6 @@ class LangfuseSettings(BaseSettings):
         env_prefix = "LANGFUSE_"
         case_sensitive = False
 
-    secret_key: str = Field()
-    public_key: str = Field()
-    host: str = Field()
+    secret_key: str = Field(default="", description="The secret key for Langfuse.")
+    public_key: str = Field(default="", description="The public key for Langfuse.")
+    host: str = Field(default="https://api.langchain.com", description="The host for Langfuse.")

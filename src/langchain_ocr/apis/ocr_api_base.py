@@ -2,6 +2,7 @@
 
 from typing import ClassVar, Dict, List, Tuple  # noqa: F401
 
+from fastapi import Request, UploadFile
 from pydantic import Field, StrictBytes, StrictStr
 from typing import Any, Tuple, Union
 from typing_extensions import Annotated
@@ -32,7 +33,8 @@ class BaseOcrApi:
 
     async def convert_pdf_post(
         self,
-        file: Annotated[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]], Field(description="The PDF file to convert.")],
+        body: UploadFile,
+        request: Request,
     ) -> str:
         """Accepts a PDF file and returns its content as Markdown."""
         ...

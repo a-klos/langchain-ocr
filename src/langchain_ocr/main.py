@@ -15,6 +15,9 @@
 from fastapi import FastAPI
 
 from langchain_ocr.apis.ocr_api import router as DefaultApiRouter
+from langchain_ocr.dependency_container import DependencyContainer
+
+from langchain_ocr.impl import ocr_api
 
 app = FastAPI(
     title="File to Markdown Converter API",
@@ -23,3 +26,8 @@ app = FastAPI(
 )
 
 app.include_router(DefaultApiRouter)
+
+
+container = DependencyContainer()
+container.wire(modules=[ocr_api])
+app.container = container

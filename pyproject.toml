@@ -26,6 +26,7 @@ langchain-community = "^0.3.19"
 langchain-openai = "^0.3.8"
 langfuse = "^2.59.7"
 pycountry = "^24.6.1"
+pdf2image = "^1.17.0"
 
 [tool.poetry.group.dev.dependencies]
 debugpy = "^1.8.1"
