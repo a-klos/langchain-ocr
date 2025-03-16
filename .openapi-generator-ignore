@@ -28,7 +28,7 @@ Dockerfile
 tests/*
 src/langchain_ocr/main.py
 src/langchain_ocr/impl/*
-src/langchain_ocr/apis/*
+
 README.md
 setup.cfg
 .flake8
@@ -39,3 +39,5 @@ docker-compose.yaml
 .openapi-generator
 src/langchain_ocr/security_api.py
 src/langchain_ocr/openapi_server/*
+
+#src/langchain_ocr/apis/*

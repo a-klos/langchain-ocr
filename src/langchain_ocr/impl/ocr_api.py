@@ -8,12 +8,9 @@ from pydantic import StrictBytes, StrictStr
 from typing_extensions import Annotated
 
 from dependency_injector.wiring import Provide, inject
-from fastapi import Depends
+from fastapi import Depends, Request, UploadFile
 
-from langchain_ocr.impl.api_endpoints.convert_docx_endpoint import ConvertDocxEndpoint
-from langchain_ocr.impl.api_endpoints.convert_html_endpoint import ConvertHtmlEndpoint
-from langchain_ocr.impl.api_endpoints.convert_pdf_endpoint import ConvertPdfEndpoint
-from langchain_ocr.impl.api_endpoints.convert_pptx_endpoint import ConvertPptxEndpoint
+from langchain_ocr.api_endpoints.convert_base import ConvertFile2Markdown
 from langchain_ocr.apis.ocr_api_base import BaseOcrApi
 from langchain_ocr.dependency_container import DependencyContainer
 
@@ -34,37 +31,24 @@ class OcrApi(BaseOcrApi):
         """Initialize the instance of the class."""
         super().__init__()
         self._background_threads = []
-
-    @inject
-    async def convert_docx_post(
-        self,
-        file: Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]],
-        convert_docx_endpoint: ConvertDocxEndpoint = Depends(Provide[DependencyContainer.chat_endpoint]),
-    ) -> str:
-        return ""
         
     @inject
-    async def convert_html_post(
+    async def convert_image_post(
         self,
-        file: Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]],
-        convert_html_endpoint: ConvertHtmlEndpoint = Depends(Provide[DependencyContainer.chat_endpoint]),
+        body: UploadFile,
+        request: Request,
+        convert_image_endpoint: ConvertFile2Markdown = Depends(Provide[DependencyContainer.convert_image_endpoint]),
     ) -> str:
-        return ""
+        logger.info("Received a request to convert the following PDF file to Markdown: %s", body.filename)
+        return await convert_image_endpoint.aconvert2markdown(body)
     
     @inject
     async def convert_pdf_post(
         self,
-        file: Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]],
-        convert_pdf_endpoint: ConvertPdfEndpoint = Depends(Provide[DependencyContainer.chat_endpoint]),
+        body: UploadFile,
+        request: Request,
+        convert_pdf_endpoint: ConvertFile2Markdown = Depends(Provide[DependencyContainer.convert_pdf_endpoint]),
     ) -> str:
-        return ""
-    
-    @inject
-    async def convert_pptx_post(
-        self,
-        file: Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]],
-        convert_pptx_endpoint: ConvertPptxEndpoint = Depends(Provide[DependencyContainer.chat_endpoint]),
-    ) -> str:
-        return ""
-        
-    
+        logger.info("Received a request to convert the following PDF file to Markdown: %s", body.filename)
+        return await convert_pdf_endpoint.aconvert2markdown(body)
+
