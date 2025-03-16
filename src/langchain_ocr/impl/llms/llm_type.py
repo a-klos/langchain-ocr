@@ -9,4 +9,3 @@ class LLMType(StrEnum):
 
     OLLAMA = "ollama"
     OPENAI = "openai"
-    VLLM = "vllm"

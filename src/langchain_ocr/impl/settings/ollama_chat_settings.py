@@ -34,10 +34,10 @@ class OllamaSettings(BaseSettings):
 
         env_prefix = "OLLAMA_"
         case_sensitive = False
+    
 
-    model: str = Field(default="qwq:32b-preview-q4_K_M")
-    base_url: str = Field(default="http://ollama:11434")
-
+    model: str = Field(default="x/llama3.2-vision:11b-instruct-fp16")    
+    base_url: str = Field(default="http://localhost:11434")
     top_k: int = Field(default=0, title="LLM Top K")
     top_p: float = Field(default=0, title="LLM Top P")
     temperature: float = Field(default=0, title="LLM Temperature")

@@ -28,7 +28,7 @@ class OpenAISettings(BaseSettings):
         case_sensitive = False
 
     model: str = Field(default="gpt-4o-mini-search-preview-2025-03-11", description="The model identifier")
-    api_key: str = Field(..., description="The API key for authentication")
+    api_key: str = Field(default="", description="The API key for authentication")
     top_p: float = Field(default=1.0, description="Total probability mass of tokens to consider at each step")
     temperature: float = Field(default=0.7, description="What sampling temperature to use")
     vision_capable: bool = Field(default=False, description="Enable a vision capable model")
