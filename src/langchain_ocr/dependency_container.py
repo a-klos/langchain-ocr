@@ -7,19 +7,17 @@ from dependency_injector.providers import (  # noqa: WOT001
     Singleton,
 )
 
-from langchain_community.llms.ollama import Ollama
 from langchain_ollama import ChatOllama
 from langchain_community.llms.vllm import VLLMOpenAI
-from langchain_openai.llms.base import OpenAI
 from langchain_ollama import ChatOllama
 from langchain_openai import ChatOpenAI
 from langfuse import Langfuse
 
+from langchain_ocr.impl.api_endpoints.convert_image_endpoint import ConvertImageEndpoint
 from langchain_ocr.impl.api_endpoints.convert_pdf_endpoint import ConvertPdfEndpoint
 from langchain_ocr.impl.chains.ocr_chain import OcrChain
 from langchain_ocr.impl.settings.ollama_chat_settings import OllamaSettings
-from langchain_ocr.impl.settings.openai_llm_settings import OpenAISettings
-from langchain_ocr.impl.settings.vllm_llm_settings import VllmSettings
+from langchain_ocr.impl.settings.openai_chat_settings import OpenAISettings
 from langchain_ocr.impl.settings.llm_class_type_settings import LlmClassTypeSettings
 from langchain_ocr.impl.settings.langfuse_settings import LangfuseSettings
 from langchain_ocr.impl.settings.language_settings import LanguageSettings
@@ -37,8 +35,7 @@ class DependencyContainer(DeclarativeContainer):
 
     # Settings
     ollama_settings = OllamaSettings()
-    # vllm_settings = VllmSettings()
-    # openai_settings = OpenAISettings()
+    openai_settings = OpenAISettings()
     langfuse_settings = LangfuseSettings()
     llm_class_type_settings = LlmClassTypeSettings()
     language_settings = LanguageSettings()
@@ -47,11 +44,15 @@ class DependencyContainer(DeclarativeContainer):
     large_language_model = Selector(
         class_selector_config.llm_type,
         ollama=Singleton(llm_provider, ollama_settings, ChatOllama),
-        # vllm=Singleton(llm_provider, vllm_settings, VLLMOpenAI),
-        # openai=Singleton(llm_provider, openai_settings, OpenAI),
+        openai=Singleton(llm_provider, openai_settings, ChatOpenAI),
     )
-
-    prompt = ocr_prompt_template_builder(language=language_settings.language)
+    
+    settings_of_interest = {
+        "ollama": ollama_settings,
+        "openai": openai_settings,
+    }
+        
+    prompt = ocr_prompt_template_builder(language=language_settings.language, model_name=settings_of_interest[llm_class_type_settings.llm_type].model)
 
     langfuse = Singleton(
         Langfuse,
@@ -85,3 +86,9 @@ class DependencyContainer(DeclarativeContainer):
         ConvertPdfEndpoint,
         chain=traced_ocr_chain,
     )
+    
+    convert_image_endpoint = Singleton(
+        ConvertImageEndpoint,
+        chain=traced_ocr_chain,
+    )
+

@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   description: |
-    An API that converts files (PDF, PPTX, DOCX, HTML) into Markdown. Clients can upload files either via multipart/form-data or by sending the raw binary  with the corresponding MIME type.
+    An API that converts files (PDF and Image files) into Markdown. Clients can upload files either via multipart/form-data or by sending the raw binary with the corresponding MIME type.
   title: File to Markdown Converter API
   version: 1.0.1
 servers:
@@ -38,6 +38,41 @@ paths:
             application/json: {}
           description: Internal server error
       summary: Convert PDF to Markdown
+  /convert/image:
+    post:
+      description: "Accepts an image file (JPEG and PNG) and returns its content as Markdown."
+      requestBody:
+        content:
+          image/jpeg:
+            schema:
+              format: binary
+              type: string
+          image/png:
+            schema:
+              format: binary
+              type: string
+        required: true
+      responses:
+        "200":
+          content:
+            text/markdown:
+              example: |
+                # Converted Markdown from Image
+                This is a sample markdown output.
+              schema:
+                type: string
+          description: Markdown conversion successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_convert_image_post_400_response'
+          description: Invalid input or conversion error
+        "500":
+          content:
+            application/json: {}
+          description: Internal server error
+      summary: Convert Image to Markdown
 components:
   schemas:
     _convert_pdf_post_400_response:
@@ -49,4 +84,14 @@ components:
           title: error
           type: string
       title: _convert_pdf_post_400_response
+      type: object
+    _convert_image_post_400_response:
+      example:
+        error: Invalid file format or conversion failed.
+      properties:
+        error:
+          example: Invalid file format or conversion failed.
+          title: error
+          type: string
+      title: _convert_image_post_400_response
       type: object
