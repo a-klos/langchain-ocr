@@ -18,5 +18,5 @@ class ConvertFile2Markdown(ABC):
         self._chain=chain
     
     @abstractmethod
-    def convert2markdown(self, file: Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]) -> str:
+    async def aconvert2markdown(self, file: Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]) -> str:
         raise NotImplementedError

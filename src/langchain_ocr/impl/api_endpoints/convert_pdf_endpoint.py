@@ -1,27 +1,23 @@
-from abc import ABC, abstractmethod
-from typing import Tuple, Union
-
-from pydantic import StrictBytes, StrictStr
+from fastapi import UploadFile
 from langchain_core.documents import Document
 
 from langchain_ocr.api_endpoints.convert_base import ConvertFile2Markdown
 from langchain_ocr.chains.async_chain import AsyncChain
 from pdf2image import convert_from_bytes
+import io
+import base64
 
 class ConvertPdfEndpoint(ConvertFile2Markdown):
     
     def __init__(self, chain: AsyncChain):
         super().__init__(chain)
     
-    def convert2markdown(self, file: Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]) -> str:
-        
-        if isinstance(file, tuple):
-            pdf_bytes = file[1]
-        elif isinstance(file, bytes):
+    async def aconvert2markdown(self, body: UploadFile) -> str:
+        file = await body.read()
+
+
+        if isinstance(file, bytes):
             pdf_bytes = file
-        elif isinstance(file, str):
-            with open(file, "rb") as f:
-                pdf_bytes = f.read()
         else:
             raise ValueError("Unsupported file type")
 
@@ -30,7 +26,11 @@ class ConvertPdfEndpoint(ConvertFile2Markdown):
         markdown = ""
         for i, image in enumerate(images):
             # Wrap the image in a Document if your chain expects it.
-            doc = Document(page_content=image, metadata={"page": i})
-            response = self._chain.ainvoke(doc)
-            markdown += response
+            buf = io.BytesIO()
+            image.save(buf, format="PNG")
+            image.save(f"page_{i}.png")
+            base64_img = base64.b64encode(buf.getvalue()).decode("utf-8")
+            # doc = Document(page_content=f"data:image/jpeg;base64,{base64_img}", metadata={"page": i})
+            response = await self._chain.ainvoke({"image_data": base64_img})
+            markdown += response.content
         return markdown

@@ -34,8 +34,13 @@ class OllamaSettings(BaseSettings):
 
         env_prefix = "OLLAMA_"
         case_sensitive = False
-
-    model: str = Field(default="qwq:32b-preview-q4_K_M")
+    
+    # model: str = Field(default="gemma3:12b-it-q8_0")
+    # model: str = Field(default="qwq:32b-preview-q4_K_M")
+    model: str = Field(default="x/llama3.2-vision:11b-instruct-fp16")
+    # model: str = Field(default="minicpm-v:8b-2.6-fp16")
+    # model: str = Field(default="granite3.2-vision:2b-fp16")
+    
     base_url: str = Field(default="http://localhost:11434")
 
     top_k: int = Field(default=0, title="LLM Top K")

@@ -57,7 +57,6 @@ class OcrChain(AsyncChain[RunnableInput, RunnableOutput]):
 
     def _create_chain(self) -> Runnable:
         return (
-            RunnablePassthrough.assign(image=(lambda x: x["page_content"]))
-            | self._langfuse_manager.get_base_prompt(self.__class__.__name__)
+            self._langfuse_manager.get_base_prompt(self.__class__.__name__)
             | self._langfuse_manager.get_base_llm(self.__class__.__name__)
         )

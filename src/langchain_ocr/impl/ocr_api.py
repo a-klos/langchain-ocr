@@ -39,5 +39,6 @@ class OcrApi(BaseOcrApi):
         request: Request,
         convert_pdf_endpoint: ConvertFile2Markdown = Depends(Provide[DependencyContainer.convert_pdf_endpoint]),
     ) -> str:
-        return convert_pdf_endpoint.convert2markdown(body)
+        logger.info("Received a request to convert the following PDF file to Markdown: %s", body.filename)
+        return await convert_pdf_endpoint.aconvert2markdown(body)
 

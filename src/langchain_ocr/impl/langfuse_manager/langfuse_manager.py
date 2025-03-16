@@ -1,13 +1,13 @@
+# spell-checker: disable
 """Module for managing Langfuse prompts and Langfuse Language Models (LLMs)."""
-
 import logging
 from typing import Optional
 
-from langchain.prompts import PromptTemplate
+from langchain.prompts import ChatPromptTemplate
 from langchain_core.language_models.llms import LLM
 from langfuse import Langfuse
 from langfuse.api.resources.commons.errors.not_found_error import NotFoundError
-from langfuse.model import TextPromptClient
+from langfuse.model import ChatPromptClient
 
 logger = logging.getLogger(__name__)
 
@@ -59,7 +59,7 @@ class LangfuseManager:
         for key in list(self._managed_prompts.keys()):
             self.get_langfuse_prompt(key)
 
-    def get_langfuse_prompt(self, base_prompt_name: str) -> Optional[TextPromptClient]:
+    def get_langfuse_prompt(self, base_prompt_name: str) -> Optional[ChatPromptClient]:
         """
         Retrieve the prompt from Langfuse Prompt Management.
 
@@ -125,7 +125,7 @@ class LangfuseManager:
 
         return self._llm.with_config({"configurable": langfuse_prompt.config})
 
-    def get_base_prompt(self, name: str) -> PromptTemplate:
+    def get_base_prompt(self, name: str) -> ChatPromptTemplate:
         """
         Retrieve the base prompt from Langfuse Prompt Management.
 
@@ -146,7 +146,10 @@ class LangfuseManager:
         langfuse_prompt = self.get_langfuse_prompt(name)
         if not langfuse_prompt:
             logger.error("Could not retrieve prompt template from langfuse. Using fallback value.")
-            return PromptTemplate.from_template(self._managed_prompts[name])
+            fallback = self._managed_prompts[name]
+            if isinstance(fallback, ChatPromptTemplate):
+                return fallback
+            return ChatPromptTemplate.from_template(fallback)
 
         langchain_prompt = langfuse_prompt.get_langchain_prompt()
-        return PromptTemplate.from_template(langchain_prompt)
+        return ChatPromptTemplate.from_template(langchain_prompt)

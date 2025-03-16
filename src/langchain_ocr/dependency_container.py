@@ -8,6 +8,7 @@ from dependency_injector.providers import (  # noqa: WOT001
 )
 
 from langchain_community.llms.ollama import Ollama
+from langchain_ollama import ChatOllama
 from langchain_community.llms.vllm import VLLMOpenAI
 from langchain_openai.llms.base import OpenAI
 from langchain_ollama import ChatOllama
@@ -16,7 +17,7 @@ from langfuse import Langfuse
 
 from langchain_ocr.impl.api_endpoints.convert_pdf_endpoint import ConvertPdfEndpoint
 from langchain_ocr.impl.chains.ocr_chain import OcrChain
-from langchain_ocr.impl.settings.ollama_llm_settings import OllamaSettings
+from langchain_ocr.impl.settings.ollama_chat_settings import OllamaSettings
 from langchain_ocr.impl.settings.openai_llm_settings import OpenAISettings
 from langchain_ocr.impl.settings.vllm_llm_settings import VllmSettings
 from langchain_ocr.impl.settings.llm_class_type_settings import LlmClassTypeSettings
@@ -45,7 +46,7 @@ class DependencyContainer(DeclarativeContainer):
 
     large_language_model = Selector(
         class_selector_config.llm_type,
-        ollama=Singleton(llm_provider, ollama_settings, Ollama),
+        ollama=Singleton(llm_provider, ollama_settings, ChatOllama),
         # vllm=Singleton(llm_provider, vllm_settings, VLLMOpenAI),
         # openai=Singleton(llm_provider, openai_settings, OpenAI),
     )
