@@ -30,7 +30,6 @@ class ConvertPdfEndpoint(ConvertFile2Markdown):
             image.save(buf, format="PNG")
             image.save(f"page_{i}.png")
             base64_img = base64.b64encode(buf.getvalue()).decode("utf-8")
-            # doc = Document(page_content=f"data:image/jpeg;base64,{base64_img}", metadata={"page": i})
             response = await self._chain.ainvoke({"image_data": base64_img})
             markdown += response.content
         return markdown
