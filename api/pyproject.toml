@@ -28,6 +28,7 @@ langfuse = "^2.59.7"
 pycountry = "^24.6.1"
 pdf2image = "^1.17.0"
 inject = "^5.2.1"
+langchain-ocr-lib = {path = "src/langchain_ocr_lib"}
 
 [tool.poetry.group.dev.dependencies]
 debugpy = "^1.8.1"

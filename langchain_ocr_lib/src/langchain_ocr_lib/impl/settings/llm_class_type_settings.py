@@ -1,7 +1,7 @@
 from pydantic import Field
 from pydantic_settings import BaseSettings
 
-from langchain_ocr.impl.llms.llm_type import LLMType
+from langchain_ocr_lib.impl.llms.llm_type import LLMType
 
 
 class LlmClassTypeSettings(BaseSettings):

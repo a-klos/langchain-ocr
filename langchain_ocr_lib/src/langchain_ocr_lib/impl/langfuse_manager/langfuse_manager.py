@@ -2,6 +2,7 @@
 """Module for managing Langfuse prompts and Langfuse Language Models (LLMs)."""
 import logging
 from typing import Optional
+import inject
 
 from langchain.prompts import ChatPromptTemplate
 from langchain_core.language_models.llms import LLM
@@ -22,12 +23,11 @@ class LangfuseManager:
     """
 
     API_KEY_FILTER: str = "api_key"
-
+    _llm = inject.attr("LargeLanguageModel")
+    _langfuse = inject.attr("LangfuseClient")
     def __init__(
         self,
-        langfuse: Langfuse,
         managed_prompts: dict[str, str],
-        llm: LLM,
     ):
         """
         Initialize the LangfuseManager.
@@ -41,8 +41,7 @@ class LangfuseManager:
         llm : LLM
             An instance of the LLM class.
         """
-        self._langfuse = langfuse
-        self._llm = llm
+        
         self._managed_prompts = managed_prompts
 
     def init_prompts(self) -> None:

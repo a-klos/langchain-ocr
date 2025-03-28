@@ -2,11 +2,12 @@
 
 from typing import Optional
 
+import inject
 from langchain_core.runnables import Runnable, RunnableConfig
 from langfuse.callback import CallbackHandler
 
-from langchain_ocr.impl.settings.langfuse_settings import LangfuseSettings
-from langchain_ocr.tracers.traced_chain import TracedChain
+from langchain_ocr_lib.impl.settings.langfuse_settings import LangfuseSettings
+from langchain_ocr_lib.tracers.traced_chain import TracedChain
 
 
 class LangfuseTracedChain(TracedChain):
@@ -22,20 +23,19 @@ class LangfuseTracedChain(TracedChain):
     """
 
     CONFIG_CALLBACK_KEY = "callbacks"
-
-    def __init__(self, inner_chain: Runnable, settings: LangfuseSettings):
+    _inner_chain = inject.attr("OcrChain")
+    def __init__(self, settings: LangfuseSettings):
         """
         Initialize the LangfuseTracedChain with the given inner chain and settings.
 
         Parameters
-        ----------
-        inner_chain : Runnable
-            The inner chain to be wrapped by this tracer.
+        ----------.
         settings : LangfuseSettings
             The settings to configure the Langfuse tracer.
         """
-        super().__init__(inner_chain)
+        super().__init__()
         self._settings = settings
+
 
     def _add_tracing_callback(self, session_id: str, config: Optional[RunnableConfig]) -> RunnableConfig:
         handler = CallbackHandler(

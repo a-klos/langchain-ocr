@@ -1,4 +1,4 @@
-"""Module for the base class of asynchronous chains."""
+"""Module for the base class of chains."""
 
 from abc import ABC, abstractmethod
 from typing import Any, Optional
@@ -7,8 +7,8 @@ from langchain_core.runnables import Runnable, RunnableConfig
 from langchain_core.runnables.utils import Input, Output
 
 
-class AsyncChain(Runnable[Input, Output], ABC):
-    """Base class for asynchronous chains."""
+class Chain(Runnable[Input, Output], ABC):
+    """Base class for chains."""
 
     @abstractmethod
     async def ainvoke(self, chain_input: Input, config: Optional[RunnableConfig] = None, **kwargs: Any) -> Output:
@@ -28,7 +28,8 @@ class AsyncChain(Runnable[Input, Output], ABC):
         Output
             The result of the chain invocation.
         """
-
+    
+    @abstractmethod
     def invoke(self, chain_input: Input, config: Optional[RunnableConfig] = None, **kwargs: Any) -> Output:
         """
         Invoke the chain with the given input and configuration.
@@ -51,10 +52,4 @@ class AsyncChain(Runnable[Input, Output], ABC):
         -------
         Output
             The result of the chain invocation.
-
-        Raises
-        ------
-        NotImplementedError
-            Is not implemented, so will raise not implemented error.
         """
-        raise NotImplementedError("Please use the async implementation.")

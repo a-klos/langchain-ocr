@@ -1,6 +1,6 @@
 from langchain.prompts import ChatPromptTemplate
 
-from langchain_ocr.language_mapping.language_mapping import get_language_name_from_pycountry
+from langchain_ocr_lib.language_mapping.language_mapping import get_language_name_from_pycountry
 
 
 def ocr_prompt_template_builder(language: str = "en", model_name: str = "") -> str:
