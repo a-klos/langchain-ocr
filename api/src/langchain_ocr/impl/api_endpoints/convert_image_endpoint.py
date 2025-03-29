@@ -1,18 +1,14 @@
 from fastapi import UploadFile
-from langchain_core.documents import Document
+import inject
+import io
+from PIL import Image
+from langchain_ocr_lib.impl.converter.image_converter import Image2MarkdownConverter
 
 from langchain_ocr.api_endpoints.convert_base import ConvertFile2Markdown
-from langchain_ocr.chains.async_chain import AsyncChain
-from pdf2image import convert_from_bytes
-import io
-import base64
-from PIL import Image
+
 
 class ConvertImageEndpoint(ConvertFile2Markdown):
-    
-    def __init__(self, chain: AsyncChain):
-        super().__init__(chain)
-    
+    _converter: Image2MarkdownConverter = inject.attr("ImageConverter")    
     async def aconvert2markdown(self, body: UploadFile) -> str:
         file = await body.read()
 
@@ -22,10 +18,6 @@ class ConvertImageEndpoint(ConvertFile2Markdown):
         except Exception as e:
             raise ValueError("Image corrupted or unsupported file type")
         
-        buf = io.BytesIO()
-        image.save(buf, format="PNG")
-        image.save(f"image.png") #
-        base64_img = base64.b64encode(buf.getvalue()).decode("utf-8")
-        response = await self._chain.ainvoke({"image_data": base64_img})
+        markdown = await self._converter.aconvert2markdown(image=image, filename=None)
         
-        return response.content
+        return markdown

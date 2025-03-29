@@ -1,7 +1,5 @@
 """Module containing the dependency injection container for managing application dependencies."""
 
-# Using the inject package for dependency injection configuration
-
 from inject import Binder
 import inject
 from langchain_ollama import ChatOllama
@@ -22,7 +20,7 @@ from langchain_ocr_lib.impl.converter.pdf_converter import Pdf2MarkdownConverter
 from langchain_ocr_lib.impl.converter.image_converter import Image2MarkdownConverter
 
 
-def _di_config(binder: Binder):
+def lib_di_config(binder: Binder):
     langfuse_settings = LangfuseSettings()
     llm_class_type_settings = LlmClassTypeSettings()
     language_settings = LanguageSettings()
@@ -57,8 +55,8 @@ def _di_config(binder: Binder):
         settings=langfuse_settings,
     ))
     
-    binder.bind("ConvertPdfEndpoint", Pdf2MarkdownConverter())
-    binder.bind("ConvertImageEndpoint", Image2MarkdownConverter())
+    binder.bind("PdfConverter", Pdf2MarkdownConverter())
+    binder.bind("ImageConverter", Image2MarkdownConverter())
     
 def configure_di():
-    inject.configure(_di_config)#, allow_override=True, clear=True)
+    inject.configure(lib_di_config, allow_override=True, clear=True)
