@@ -54,7 +54,7 @@ flake8-docstrings = "^1.7.0"
 
 
 [tool.flake8]
-exclude= [".eggs", "src/rag_core_api/models", ".git", ".hg", ".mypy_cache", ".tox", ".venv", ".devcontainer", "venv", "_build", "buck-out", "build", "dist", "**/__init__.py"]
+exclude= [".eggs", "src/langchain_ocr/models", "tests", ".git", ".hg", ".mypy_cache", ".tox", ".venv", ".devcontainer", "venv", "_build", "buck-out", "build", "dist", "**/__init__.py"]
 statistics = true
 show-source = false
 max-complexity = 8
