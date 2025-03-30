@@ -15,4 +15,5 @@ def _api_specific_config(binder: Binder):
 
 
 def configure():
+    """Configure the dependency injection container."""
     inject.configure(_api_specific_config, allow_override=True, clear=False)

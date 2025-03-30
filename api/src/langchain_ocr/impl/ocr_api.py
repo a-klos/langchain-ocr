@@ -32,6 +32,21 @@ class OcrApi(BaseOcrApi):
         body: UploadFile,
         request: Request,
     ) -> str:
+        """
+        Convert an image file to Markdown.
+
+        Parameters
+        ----------
+        body : UploadFile
+            The uploaded image file.
+        request : Request
+            The incoming request.
+
+        Returns
+        -------
+        str
+            The converted Markdown content.
+        """
         logger.info("Received a request to convert the following PDF file to Markdown: %s", body.filename)
         convert_image_endpoint = inject.instance(ConvertImageEndpoint)
         return await convert_image_endpoint.aconvert2markdown(body)
@@ -41,6 +56,21 @@ class OcrApi(BaseOcrApi):
         body: UploadFile,
         request: Request,
     ) -> str:
+        """
+        Convert a PDF file to Markdown.
+
+        Parameters
+        ----------
+        body : UploadFile
+            The uploaded PDF file.
+        request : Request
+            The incoming request.
+
+        Returns
+        -------
+        str
+            The converted Markdown content.
+        """
         logger.info("Received a request to convert the following PDF file to Markdown: %s", body.filename)
         convert_pdf_endpoint = inject.instance(ConvertPdfEndpoint)
         return await convert_pdf_endpoint.aconvert2markdown(body)
