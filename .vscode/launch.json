@@ -10,7 +10,7 @@
             "request": "launch",
             "module": "uvicorn",
             "args": [
-                "langchain_ocr.main:app",
+                "api.src.langchain_ocr.main:app",
                 "--reload"
             ],
             "console": "integratedTerminal",
