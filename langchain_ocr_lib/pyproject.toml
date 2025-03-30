@@ -109,3 +109,4 @@ max-line-length = 120
 log_cli = 1
 log_cli_level = "DEBUG"
 testpaths = "tests"
+pythonpath = "src"
