@@ -12,6 +12,7 @@ def _api_specific_config(binder: Binder):
     binder.install(lib_di_config)
     binder.bind("ConvertPdfEndpoint", ConvertPdfEndpoint())
     binder.bind("ConvertImageEndpoint", ConvertImageEndpoint())
-    
+
+
 def configure():
     inject.configure(_api_specific_config, allow_override=True, clear=False)

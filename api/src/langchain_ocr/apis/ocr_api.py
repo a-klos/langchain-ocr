@@ -58,6 +58,7 @@ async def convert_image_post(
         raise HTTPException(status_code=500, detail="Not implemented")
     return await BaseOcrApi.subclasses[0]().convert_image_post(body, request)
 
+
 @router.post(
     "/convert/pdf",
     responses={

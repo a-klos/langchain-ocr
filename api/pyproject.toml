@@ -104,4 +104,6 @@ max-line-length = 120
 [tool.pytest.ini_options]
 log_cli = 1
 log_cli_level = "DEBUG"
+pythonpath = "src"
 testpaths = "tests"
+

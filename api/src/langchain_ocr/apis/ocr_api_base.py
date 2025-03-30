@@ -15,6 +15,7 @@ class BaseOcrApi:
     def __init_subclass__(cls, **kwargs):
         super().__init_subclass__(**kwargs)
         BaseOcrApi.subclasses = BaseOcrApi.subclasses + (cls,)
+
     async def convert_image_post(
         self,
         body: UploadFile,
@@ -22,7 +23,6 @@ class BaseOcrApi:
     ) -> str:
         """Accepts an image file (JPEG and PNG) and returns its content as Markdown."""
         ...
-
 
     async def convert_pdf_post(
         self,

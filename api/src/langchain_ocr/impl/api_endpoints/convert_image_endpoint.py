@@ -8,16 +8,17 @@ from langchain_ocr.api_endpoints.convert_base import ConvertFile2Markdown
 
 
 class ConvertImageEndpoint(ConvertFile2Markdown):
-    _converter: Image2MarkdownConverter = inject.attr("ImageConverter")    
+    _converter: Image2MarkdownConverter = inject.attr("ImageConverter")
+
     async def aconvert2markdown(self, body: UploadFile) -> str:
         file = await body.read()
 
         try:
             image = Image.open(io.BytesIO(file))
-            
+
         except Exception as e:
             raise ValueError("Image corrupted or unsupported file type")
-        
+
         markdown = await self._converter.aconvert2markdown(image=image, filename=None)
-        
+
         return markdown

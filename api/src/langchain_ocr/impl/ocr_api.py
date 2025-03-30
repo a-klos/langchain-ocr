@@ -26,7 +26,7 @@ class OcrApi(BaseOcrApi):
         """Initialize the instance of the class."""
         super().__init__()
         self._background_threads = []
-        
+
     async def convert_image_post(
         self,
         body: UploadFile,
@@ -35,7 +35,7 @@ class OcrApi(BaseOcrApi):
         logger.info("Received a request to convert the following PDF file to Markdown: %s", body.filename)
         convert_image_endpoint = inject.instance(ConvertImageEndpoint)
         return await convert_image_endpoint.aconvert2markdown(body)
-    
+
     async def convert_pdf_post(
         self,
         body: UploadFile,
@@ -44,4 +44,3 @@ class OcrApi(BaseOcrApi):
         logger.info("Received a request to convert the following PDF file to Markdown: %s", body.filename)
         convert_pdf_endpoint = inject.instance(ConvertPdfEndpoint)
         return await convert_pdf_endpoint.aconvert2markdown(body)
-
