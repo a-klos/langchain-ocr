@@ -3,7 +3,7 @@
 from typing import Optional
 
 import inject
-from langchain_core.runnables import Runnable, RunnableConfig
+from langchain_core.runnables import RunnableConfig
 from langfuse.callback import CallbackHandler
 
 from langchain_ocr_lib.impl.settings.langfuse_settings import LangfuseSettings
@@ -26,14 +26,6 @@ class LangfuseTracedChain(TracedChain):
     _inner_chain = inject.attr("OcrChain")
 
     def __init__(self, settings: LangfuseSettings):
-        """
-        Initialize the LangfuseTracedChain with the given inner chain and settings.
-
-        Parameters
-        ----------.
-        settings : LangfuseSettings
-            The settings to configure the Langfuse tracer.
-        """
         super().__init__()
         self._settings = settings
 

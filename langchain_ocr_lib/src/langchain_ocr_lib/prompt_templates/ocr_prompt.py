@@ -56,4 +56,3 @@ def ocr_prompt_template_builder(language: str = "en", model_name: str = "") -> s
     )
 
     return ocr_prompt_template
-

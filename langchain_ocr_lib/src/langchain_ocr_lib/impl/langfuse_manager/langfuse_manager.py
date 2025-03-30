@@ -6,7 +6,6 @@ import inject
 
 from langchain.prompts import ChatPromptTemplate
 from langchain_core.language_models.llms import LLM
-from langfuse import Langfuse
 from langfuse.api.resources.commons.errors.not_found_error import NotFoundError
 from langfuse.model import ChatPromptClient
 
@@ -30,19 +29,6 @@ class LangfuseManager:
         self,
         managed_prompts: dict[str, str],
     ):
-        """
-        Initialize the LangfuseManager.
-
-        Parameters
-        ----------
-        langfuse : Langfuse
-            An instance of the Langfuse class.
-        managed_prompts : dict of str
-            A dictionary where keys and values are strings representing managed prompts.
-        llm : LLM
-            An instance of the LLM class.
-        """
-
         self._managed_prompts = managed_prompts
 
     def init_prompts(self) -> None:

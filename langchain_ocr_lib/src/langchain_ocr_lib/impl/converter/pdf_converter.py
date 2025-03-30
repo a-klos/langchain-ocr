@@ -1,5 +1,5 @@
-from fastapi import UploadFile
-import inject
+"""Module for converting PDF files to markdown."""
+
 from pdf2image import convert_from_bytes
 import io
 import base64
@@ -8,20 +8,52 @@ from langchain_ocr_lib.converter.converter import File2MarkdownConverter
 
 
 class Pdf2MarkdownConverter(File2MarkdownConverter):
+    """Converts PDF files to markdown format.
+
+    This class provides methods to convert PDF files, either provided as bytes or by filename,
+    into markdown format.
+
+    Attributes
+    ----------
+    _chain : Chain
+        The OCR chain used to process images.
+    """
+
     async def aconvert2markdown(self, pdf_bytes: bytes | None = None, filename: str | None = None) -> str:
+        """Asynchronously converts a PDF file (either provided as bytes or by filename) into markdown.
+
+        Parameters
+        ----------
+        pdf_bytes : bytes, optional
+            The PDF file as bytes. Defaults to None.
+        filename : str, optional
+            The path to the PDF file. Defaults to None.
+
+        Returns
+        -------
+        str
+            The markdown representation of the PDF content extracted via OCR.
+
+        Raises
+        ------
+        ValueError
+            If neither `pdf_bytes` nor `filename` is provided.
+        ValueError
+            If the PDF file is corrupted or the file type is unsupported.
+        """
         if pdf_bytes is None and filename is None:
             raise ValueError("No file provided")
-        elif pdf_bytes is None:
+        if pdf_bytes is None:
             try:
                 with open(filename, "rb") as f:
                     pdf_bytes = f.read()
             except Exception as e:
-                raise ValueError("PDF corrupted or unsupported file type")
+                raise ValueError("PDF corrupted or unsupported file type, %s" % e)
 
         images = convert_from_bytes(pdf_bytes)
 
         markdown = ""
-        for i, image in enumerate(images):
+        for image in images:
             # Wrap the image in a Document if your chain expects it.
             buf = io.BytesIO()
             image.save(buf, format="PNG")
@@ -31,9 +63,30 @@ class Pdf2MarkdownConverter(File2MarkdownConverter):
         return markdown
 
     def convert2markdown(self, pdf_bytes: bytes | None = None, filename: str | None = None) -> str:
+        """Convert a PDF file (either provided as bytes or by filename) into markdown.
+
+        Parameters
+        ----------
+        pdf_bytes : bytes, optional
+            The PDF file as bytes. Defaults to None.
+        filename : str, optional
+            The path to the PDF file. Defaults to None.
+
+        Returns
+        -------
+        str
+            The markdown representation of the PDF content extracted via OCR.
+
+        Raises
+        ------
+        ValueError
+            If neither `pdf_bytes` nor `filename` is provided.
+        ValueError
+            If the PDF file is corrupted or the file type is unsupported.
+        """
         if pdf_bytes is None and filename is None:
             raise ValueError("No file provided")
-        elif pdf_bytes is None:
+        if pdf_bytes is None:
             try:
                 with open(filename, "rb") as f:
                     pdf_bytes = f.read()
@@ -43,7 +96,7 @@ class Pdf2MarkdownConverter(File2MarkdownConverter):
         images = convert_from_bytes(pdf_bytes)
 
         markdown = ""
-        for i, image in enumerate(images):
+        for image in images:
             buf = io.BytesIO()
             image.save(buf, format="PNG")
             base64_img = base64.b64encode(buf.getvalue()).decode("utf-8")

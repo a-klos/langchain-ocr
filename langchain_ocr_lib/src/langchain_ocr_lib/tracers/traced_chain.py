@@ -4,8 +4,7 @@ import uuid
 from abc import ABC, abstractmethod
 from typing import Any, Optional
 
-import inject
-from langchain_core.runnables import Runnable, RunnableConfig, ensure_config
+from langchain_core.runnables import RunnableConfig, ensure_config
 
 from langchain_ocr_lib.chains.chain import Chain
 
@@ -29,11 +28,6 @@ class TracedChain(Chain[RunnableInput, RunnableOutput], ABC):
 
     SESSION_ID_KEY = "session_id"
     METADATA_KEY = "metadata"
-
-    def __init__(self):
-        """
-        Initialize the TracedChain with an inner Runnable chain.
-        """
 
     async def ainvoke(
         self, chain_input: RunnableInput, config: Optional[RunnableConfig] = None, **kwargs: Any
@@ -65,7 +59,7 @@ class TracedChain(Chain[RunnableInput, RunnableOutput], ABC):
         self, chain_input: RunnableInput, config: Optional[RunnableConfig] = None, **kwargs: Any
     ) -> RunnableOutput:
         """
-        Synchronously invoke the chain with the given input and configuration.
+        Invoke the chain with the given input and configuration.
 
         Parameters
         ----------

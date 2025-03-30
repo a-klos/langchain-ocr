@@ -1,3 +1,5 @@
+"""Module containing the LanguageSettings class."""
+
 from pydantic import Field
 from pydantic_settings import BaseSettings
 

@@ -21,6 +21,19 @@ from langchain_ocr_lib.impl.converter.image_converter import Image2MarkdownConve
 
 
 def lib_di_config(binder: Binder):
+    """Configure dependency injection bindings for the OCR library.
+
+    Parameters
+    ----------
+    binder : Binder
+        The dependency injection binder instance used to register the bindings.
+
+    Raises
+    ------
+    NotImplementedError
+        If the configured LLM type is not implemented.
+
+    """
     langfuse_settings = LangfuseSettings()
     llm_class_type_settings = LlmClassTypeSettings()
     language_settings = LanguageSettings()
@@ -69,4 +82,5 @@ def lib_di_config(binder: Binder):
 
 
 def configure_di():
+    """Configure dependency injection using the `inject` library."""
     inject.configure(lib_di_config, allow_override=True, clear=True)
