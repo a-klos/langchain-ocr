@@ -24,6 +24,7 @@ class OpenAISettings(BaseSettings):
 
     class Config:
         """Config class for reading fields from environment variables."""
+
         env_prefix = "OPENAI_"
         case_sensitive = False
 

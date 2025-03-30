@@ -24,6 +24,7 @@ class LangfuseTracedChain(TracedChain):
 
     CONFIG_CALLBACK_KEY = "callbacks"
     _inner_chain = inject.attr("OcrChain")
+
     def __init__(self, settings: LangfuseSettings):
         """
         Initialize the LangfuseTracedChain with the given inner chain and settings.
@@ -35,7 +36,6 @@ class LangfuseTracedChain(TracedChain):
         """
         super().__init__()
         self._settings = settings
-
 
     def _add_tracing_callback(self, session_id: str, config: Optional[RunnableConfig]) -> RunnableConfig:
         handler = CallbackHandler(

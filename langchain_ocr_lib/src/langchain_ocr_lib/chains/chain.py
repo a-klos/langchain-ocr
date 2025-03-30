@@ -28,7 +28,7 @@ class Chain(Runnable[Input, Output], ABC):
         Output
             The result of the chain invocation.
         """
-    
+
     @abstractmethod
     def invoke(self, chain_input: Input, config: Optional[RunnableConfig] = None, **kwargs: Any) -> Output:
         """

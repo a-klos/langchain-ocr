@@ -8,8 +8,7 @@ from langchain_ocr_lib.converter.converter import File2MarkdownConverter
 
 
 class Pdf2MarkdownConverter(File2MarkdownConverter):
-    
-    async def aconvert2markdown(self, pdf_bytes:bytes|None=None, filename:str|None=None) -> str:
+    async def aconvert2markdown(self, pdf_bytes: bytes | None = None, filename: str | None = None) -> str:
         if pdf_bytes is None and filename is None:
             raise ValueError("No file provided")
         elif pdf_bytes is None:
@@ -31,7 +30,7 @@ class Pdf2MarkdownConverter(File2MarkdownConverter):
             markdown += response.content
         return markdown
 
-    def convert2markdown(self, pdf_bytes: bytes | None=None, filename: str | None=None) -> str:
+    def convert2markdown(self, pdf_bytes: bytes | None = None, filename: str | None = None) -> str:
         if pdf_bytes is None and filename is None:
             raise ValueError("No file provided")
         elif pdf_bytes is None:

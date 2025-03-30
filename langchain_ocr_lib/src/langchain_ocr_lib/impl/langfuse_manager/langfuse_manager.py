@@ -25,6 +25,7 @@ class LangfuseManager:
     API_KEY_FILTER: str = "api_key"
     _llm = inject.attr("LargeLanguageModel")
     _langfuse = inject.attr("LangfuseClient")
+
     def __init__(
         self,
         managed_prompts: dict[str, str],
@@ -41,7 +42,7 @@ class LangfuseManager:
         llm : LLM
             An instance of the LLM class.
         """
-        
+
         self._managed_prompts = managed_prompts
 
     def init_prompts(self) -> None:

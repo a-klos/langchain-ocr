@@ -34,7 +34,6 @@ class OllamaSettings(BaseSettings):
 
         env_prefix = "OLLAMA_"
         case_sensitive = False
-    
 
     model: str = Field(default="x/llama3.2-vision:11b-instruct-fp16")
     base_url: str = Field(default="http://localhost:11434")

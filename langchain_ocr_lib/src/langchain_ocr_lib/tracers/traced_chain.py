@@ -60,7 +60,7 @@ class TracedChain(Chain[RunnableInput, RunnableOutput], ABC):
         session_id = self._get_session_id(config)
         config_with_tracing = self._add_tracing_callback(session_id, config)
         return await self._inner_chain.ainvoke(chain_input, config=config_with_tracing)
-    
+
     def invoke(
         self, chain_input: RunnableInput, config: Optional[RunnableConfig] = None, **kwargs: Any
     ) -> RunnableOutput:

@@ -9,7 +9,7 @@ import inject
 from langchain_ocr_lib.chains.chain import Chain
 from langchain_ocr_lib.impl.langfuse_manager.langfuse_manager import LangfuseManager
 
-RunnableInput = Input #TODO: adjust properly
+RunnableInput = Input  # TODO: adjust properly
 RunnableOutput = str
 
 
@@ -17,7 +17,7 @@ class OcrChain(Chain[RunnableInput, RunnableOutput]):
     """Base class for LLM answer generation chain."""
 
     _langfuse_manager = inject.attr("LangfuseManager")
-    
+
     def __init__(self):
         """Initialize the AnswerGenerationChain.
 
@@ -26,8 +26,7 @@ class OcrChain(Chain[RunnableInput, RunnableOutput]):
         langfuse_manager : LangfuseManager
             Manager instance for handling Langfuse operations and monitoring
         """
-        
-        
+
     async def ainvoke(
         self, chain_input: RunnableInput, config: Optional[RunnableConfig] = None, **kwargs: Any
     ) -> RunnableOutput:
@@ -56,11 +55,10 @@ class OcrChain(Chain[RunnableInput, RunnableOutput]):
         return await self._create_chain().ainvoke(chain_input, config=config)
 
     def _create_chain(self) -> Runnable:
-        return (
-            self._langfuse_manager.get_base_prompt(self.__class__.__name__)
-            | self._langfuse_manager.get_base_llm(self.__class__.__name__)
+        return self._langfuse_manager.get_base_prompt(self.__class__.__name__) | self._langfuse_manager.get_base_llm(
+            self.__class__.__name__
         )
-        
+
     def invoke(
         self, chain_input: RunnableInput, config: Optional[RunnableConfig] = None, **kwargs: Any
     ) -> RunnableOutput:
@@ -87,4 +85,3 @@ class OcrChain(Chain[RunnableInput, RunnableOutput]):
             If an error occurs during chain execution.
         """
         return self._create_chain().invoke(chain_input, config=config)
-        

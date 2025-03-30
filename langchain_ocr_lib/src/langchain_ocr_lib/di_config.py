@@ -34,29 +34,39 @@ def lib_di_config(binder: Binder):
     else:
         raise NotImplementedError("Configured LLM is not implemented")
     binder.bind("LargeLanguageModel", llm_instance)
-    
+
     prompt = ocr_prompt_template_builder(language=language_settings.language, model_name=settings.model)
-    
-    binder.bind("LangfuseClient", Langfuse(
-        public_key=langfuse_settings.public_key,
-        secret_key=langfuse_settings.secret_key,
-        host=langfuse_settings.host,
-    ))
-    
-    binder.bind("LangfuseManager", LangfuseManager(
-        managed_prompts={
-            OcrChain.__name__: prompt,
-        },
-    ))
-    
+
+    binder.bind(
+        "LangfuseClient",
+        Langfuse(
+            public_key=langfuse_settings.public_key,
+            secret_key=langfuse_settings.secret_key,
+            host=langfuse_settings.host,
+        ),
+    )
+
+    binder.bind(
+        "LangfuseManager",
+        LangfuseManager(
+            managed_prompts={
+                OcrChain.__name__: prompt,
+            },
+        ),
+    )
+
     binder.bind("OcrChain", OcrChain())
-    
-    binder.bind("LangfuseTracedChain", LangfuseTracedChain(
-        settings=langfuse_settings,
-    ))
-    
+
+    binder.bind(
+        "LangfuseTracedChain",
+        LangfuseTracedChain(
+            settings=langfuse_settings,
+        ),
+    )
+
     binder.bind("PdfConverter", Pdf2MarkdownConverter())
     binder.bind("ImageConverter", Image2MarkdownConverter())
-    
+
+
 def configure_di():
     inject.configure(lib_di_config, allow_override=True, clear=True)

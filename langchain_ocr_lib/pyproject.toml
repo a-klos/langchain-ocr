@@ -58,7 +58,7 @@ flake8-docstrings = "^1.7.0"
 
 
 [tool.flake8]
-exclude= [".eggs", ".git", ".hg", ".mypy_cache", ".tox", ".venv", ".devcontainer", "venv", "_build", "buck-out", "build", "dist", "**/__init__.py"]
+exclude= [".eggs", ".git", ".hg", ".mypy_cache", ".tox", ".venv", ".devcontainer", "venv", "_build", "buck-out", "build", "dist", "**/__init__.py", "src/langchain_ocr_lib/prompt_templates/ocr_prompt.py"]
 statistics = true
 show-source = false
 max-complexity = 8

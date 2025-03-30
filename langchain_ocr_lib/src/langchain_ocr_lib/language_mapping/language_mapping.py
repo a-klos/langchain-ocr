@@ -1,5 +1,6 @@
 import pycountry
 
+
 def get_language_name_from_pycountry(code: str) -> str:
     """
     Given a language abbreviation (ISO 639-1), return the full language name in English using pycountry.
@@ -14,6 +15,6 @@ def get_language_name_from_pycountry(code: str) -> str:
 
 # Example usage:
 if __name__ == "__main__":
-    lang_codes = ["en", "de","ru","it","es","zh","ja","fr"]
+    lang_codes = ["en", "de", "ru", "it", "es", "zh", "ja", "fr"]
     for lang_code in lang_codes:
         print(f"pycountry: {lang_code} -> {get_language_name_from_pycountry(lang_code)}")
