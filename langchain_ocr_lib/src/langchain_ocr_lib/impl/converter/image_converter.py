@@ -17,7 +17,7 @@ class Image2MarkdownConverter(File2MarkdownConverter):
 
         Parameters
         ----------
-        image : ImageFile | None, optional
+        file : ImageFile | None, optional
             PIL Image object to convert, by default None
         filename : str | None, optional
             Path to the image file to convert, by default None
@@ -30,9 +30,9 @@ class Image2MarkdownConverter(File2MarkdownConverter):
         Raises
         ------
         ValueError
-            If no image or filename is provided.
+            If no file or filename is provided.
         ValueError
-            If the image is corrupted or the file type is unsupported.
+            If the file is corrupted or the file type is unsupported.
         """
         if file is None and filename is None:
             raise ValueError("No file provided")
@@ -49,13 +49,13 @@ class Image2MarkdownConverter(File2MarkdownConverter):
 
         return response.content
 
-    def convert2markdown(self, image: ImageFile | None = None, filename: str | None = None) -> str:
+    def convert2markdown(self, file: ImageFile | None = None, filename: str | None = None) -> str:
         """
         Convert an image to markdown using a Langchain chain.
 
         Parameters
         ----------
-        image : ImageFile | None, optional
+        file : ImageFile | None, optional
             PIL Image object to convert, by default None
         filename : str | None, optional
             Path to the image file to convert, by default None
@@ -68,20 +68,20 @@ class Image2MarkdownConverter(File2MarkdownConverter):
         Raises
         ------
         ValueError
-            If no image or filename is provided.
+            If no file or filename is provided.
         ValueError
-            If the image is corrupted or the file type is unsupported.
+            If the file is corrupted or the file type is unsupported.
         """
-        if image is None and filename is None:
+        if file is None and filename is None:
             raise ValueError("No file provided")
-        if image is None:
+        if file is None:
             try:
-                image = Image.open(filename)
+                file = Image.open(filename)
             except Exception as e:
                 raise ValueError("Image corrupted or unsupported file type, %s" % e)
 
         buf = io.BytesIO()
-        image.save(buf, format="PNG")
+        file.save(buf, format="PNG")
         base64_img = base64.b64encode(buf.getvalue()).decode("utf-8")
         response = self._chain.invoke({"image_data": base64_img})
 
