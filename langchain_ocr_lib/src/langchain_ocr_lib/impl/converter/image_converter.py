@@ -11,7 +11,7 @@ from langchain_ocr_lib.converter.converter import File2MarkdownConverter
 class Image2MarkdownConverter(File2MarkdownConverter):
     """Converts an image to markdown using a Langchain chain."""
 
-    async def aconvert2markdown(self, image: ImageFile | None = None, filename: str | None = None) -> str:
+    async def aconvert2markdown(self, file: ImageFile | None = None, filename: str | None = None) -> str:
         """
         Asynchronously converts an image to markdown using a Langchain chain.
 
@@ -34,16 +34,16 @@ class Image2MarkdownConverter(File2MarkdownConverter):
         ValueError
             If the image is corrupted or the file type is unsupported.
         """
-        if image is None and filename is None:
+        if file is None and filename is None:
             raise ValueError("No file provided")
-        if image is None:
+        if file is None:
             try:
-                image = Image.open(filename)
+                file = Image.open(filename)
             except Exception as e:
                 raise ValueError("Image corrupted or unsupported file type, %s" % e)
 
         buf = io.BytesIO()
-        image.save(buf, format="PNG")
+        file.save(buf, format="PNG")
         base64_img = base64.b64encode(buf.getvalue()).decode("utf-8")
         response = await self._chain.ainvoke({"image_data": base64_img})
 

@@ -1,7 +1,6 @@
 """Module for the File2MarkdownConverter class."""
 
 from abc import ABC, abstractmethod
-from fastapi import UploadFile
 import inject
 
 
@@ -11,7 +10,7 @@ class File2MarkdownConverter(ABC):
     _chain = inject.attr("LangfuseTracedChain")
 
     @abstractmethod
-    async def aconvert2markdown(self, file: UploadFile) -> str:
+    async def aconvert2markdown(self, file: bytes) -> str:
         """Asynchronously convert file to markdown format.
 
         Parameters
@@ -32,7 +31,7 @@ class File2MarkdownConverter(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def convert2markdown(self, file: UploadFile) -> str:
+    def convert2markdown(self, file: bytes) -> str:
         """Convert file to markdown format.
 
         Parameters

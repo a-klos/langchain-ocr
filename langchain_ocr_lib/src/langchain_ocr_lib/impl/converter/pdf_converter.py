@@ -19,7 +19,7 @@ class Pdf2MarkdownConverter(File2MarkdownConverter):
         The OCR chain used to process images.
     """
 
-    async def aconvert2markdown(self, pdf_bytes: bytes | None = None, filename: str | None = None) -> str:
+    async def aconvert2markdown(self, file: bytes | None = None, filename: str | None = None) -> str:
         """Asynchronously converts a PDF file (either provided as bytes or by filename) into markdown.
 
         Parameters
@@ -41,16 +41,16 @@ class Pdf2MarkdownConverter(File2MarkdownConverter):
         ValueError
             If the PDF file is corrupted or the file type is unsupported.
         """
-        if pdf_bytes is None and filename is None:
+        if file is None and filename is None:
             raise ValueError("No file provided")
-        if pdf_bytes is None:
+        if file is None:
             try:
                 with open(filename, "rb") as f:
-                    pdf_bytes = f.read()
+                    file = f.read()
             except Exception as e:
                 raise ValueError("PDF corrupted or unsupported file type, %s" % e)
 
-        images = convert_from_bytes(pdf_bytes)
+        images = convert_from_bytes(file)
 
         markdown = ""
         for image in images:
