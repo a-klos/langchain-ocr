@@ -1,7 +1,26 @@
+import json
+
 from langchain.prompts import ChatPromptTemplate
 
 from langchain_ocr_lib.language_mapping.language_mapping import get_language_name_from_pycountry
 
+def _format_prompt_template(prompt_template: ChatPromptTemplate) -> list:
+    formatted_messages = []
+    print(prompt_template.messages)
+    for message in prompt_template.messages:
+        # If the message is a tuple, unpack it
+        if isinstance(message, tuple):
+            role, content = message
+            # If content is not a string (e.g. a list), convert it to JSON string
+            if not isinstance(content, str):
+                import json
+                content = json.dumps(content)
+            formatted_messages.append({"role": role, "content": content})
+        else:
+            # Assume it's already a dict
+            formatted_messages.append(message)
+    print(formatted_messages)
+    return formatted_messages
 
 def ocr_prompt_template_builder(language: str = "en", model_name: str = "") -> str:
     system_prompt = f"""
@@ -48,11 +67,18 @@ def ocr_prompt_template_builder(language: str = "en", model_name: str = "") -> s
     if "llama3.2" in model_name:
         system_prompt = "<|begin_of_text|><|start_header_id|>system<|end_header_id|>" + system_prompt + "<|eot_id|>"
 
-    ocr_prompt_template = ChatPromptTemplate.from_messages(
-        [
-            ("system", system_prompt),
-            ("user", [{"type": "image_url", "image_url": {"url": "data:image/jpeg;base64,{image_data}"}}]),
-        ]
-    )
+    # ocr_prompt_template = ChatPromptTemplate.from_messages(
+    #     [
+    #         ("system", system_prompt),
+    #         ("user", [{"type": "image_url", "image_url": {"url": "data:image/jpeg;base64,{image_data}"}}]),
+    #     ]
+    # )
+    
+    ocr_prompt_template = [
+        {"role":"system", "content":system_prompt},
+        {"role":"user", "content":json.dumps([{"type": "image_url", "image_url": {"url": "data:image/jpeg;base64,{image_data}"}}])},
+    ]
+    
 
+    # return _format_prompt_template(ocr_prompt_template)
     return ocr_prompt_template

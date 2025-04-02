@@ -1,12 +1,17 @@
-version: '3.6'
 services:
   ocr-api:
     build:
       context: .
-      target: service
+      dockerfile: api/Dockerfile
     ports:
-      - "8080:8080"
-    command: uvicorn langchain_ocr.main:app --host 0.0.0.0 --port 8080
+      - "8081:8080"
+    command: uvicorn src.langchain_ocr.main:app --host 0.0.0.0 --port 8080
+    environment:
+      - LANGFUSE_HOST=http://langfuse-web:30011
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - OLLAMA_MODEL=gemma3
+      - LANGFUSE_PUBLIC_KEY=pubkey
+      - LANGFUSE_SECRET_KEY=secretkey
     depends_on:
       postgres:
         condition: service_healthy
@@ -115,15 +120,15 @@ services:
       REDIS_TLS_KEY: ${REDIS_TLS_KEY:-/certs/redis.key}
       NEXTAUTH_URL: http://localhost:3000
       NEXTAUTH_SECRET: mysecret # CHANGEME
-      LANGFUSE_INIT_ORG_ID: ${LANGFUSE_INIT_ORG_ID:-}
-      LANGFUSE_INIT_ORG_NAME: ${LANGFUSE_INIT_ORG_NAME:-}
-      LANGFUSE_INIT_PROJECT_ID: ${LANGFUSE_INIT_PROJECT_ID:-}
-      LANGFUSE_INIT_PROJECT_NAME: ${LANGFUSE_INIT_PROJECT_NAME:-}
-      LANGFUSE_INIT_PROJECT_PUBLIC_KEY: ${LANGFUSE_INIT_PROJECT_PUBLIC_KEY:-}
-      LANGFUSE_INIT_PROJECT_SECRET_KEY: ${LANGFUSE_INIT_PROJECT_SECRET_KEY:-}
-      LANGFUSE_INIT_USER_EMAIL: ${LANGFUSE_INIT_USER_EMAIL:-}
-      LANGFUSE_INIT_USER_NAME: ${LANGFUSE_INIT_USER_NAME:-}
-      LANGFUSE_INIT_USER_PASSWORD: ${LANGFUSE_INIT_USER_PASSWORD:-}
+      LANGFUSE_INIT_ORG_ID: ${LANGFUSE_INIT_ORG_ID:-orgid} # CHANGEME
+      LANGFUSE_INIT_ORG_NAME: ${LANGFUSE_INIT_ORG_NAME:-org} # CHANGEME
+      LANGFUSE_INIT_PROJECT_ID: ${LANGFUSE_INIT_PROJECT_ID:-projid} # CHANGEME
+      LANGFUSE_INIT_PROJECT_NAME: ${LANGFUSE_INIT_PROJECT_NAME:-proj} # CHANGEME
+      LANGFUSE_INIT_PROJECT_PUBLIC_KEY: ${LANGFUSE_INIT_PROJECT_PUBLIC_KEY:-pubkey} # CHANGEME
+      LANGFUSE_INIT_PROJECT_SECRET_KEY: ${LANGFUSE_INIT_PROJECT_SECRET_KEY:-secretkey} # CHANGEME
+      LANGFUSE_INIT_USER_EMAIL: ${LANGFUSE_INIT_USER_EMAIL:-user@ocr.com} # CHANGEME
+      LANGFUSE_INIT_USER_NAME: ${LANGFUSE_INIT_USER_NAME:-user} # CHANGEME
+      LANGFUSE_INIT_USER_PASSWORD: ${LANGFUSE_INIT_USER_PASSWORD:-password123} # CHANGEME
 
   clickhouse:
     image: clickhouse/clickhouse-server
@@ -197,6 +202,12 @@ services:
       - 127.0.0.1:5432:5432
     volumes:
       - langfuse_postgres_data:/var/lib/postgresql/data
+  ollama:
+    image: ollama/ollama
+    ports:
+      - 11434:11434
+    volumes:
+      - ollama_data:/root/.ollama
 
 volumes:
   langfuse_postgres_data:
@@ -206,4 +217,6 @@ volumes:
   langfuse_clickhouse_logs:
     driver: local
   langfuse_minio_data:
+    driver: local
+  ollama_data:
     driver: local
