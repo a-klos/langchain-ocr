@@ -1,3 +1,5 @@
+import json
+
 from langchain.prompts import ChatPromptTemplate
 
 from langchain_ocr_lib.language_mapping.language_mapping import get_language_name_from_pycountry
@@ -48,11 +50,11 @@ def ocr_prompt_template_builder(language: str = "en", model_name: str = "") -> s
     if "llama3.2" in model_name:
         system_prompt = "<|begin_of_text|><|start_header_id|>system<|end_header_id|>" + system_prompt + "<|eot_id|>"
 
-    ocr_prompt_template = ChatPromptTemplate.from_messages(
-        [
-            ("system", system_prompt),
-            ("user", [{"type": "image_url", "image_url": {"url": "data:image/jpeg;base64,{image_data}"}}]),
-        ]
-    )
-
+    ocr_prompt_template = [
+        {"role": "system", "content": system_prompt},
+        {
+            "role": "user",
+            "content": json.dumps([{"type": "image_url", "image_url": {"url": "data:image/jpeg;base64,{image_data}"}}]),
+        },
+    ]
     return ocr_prompt_template

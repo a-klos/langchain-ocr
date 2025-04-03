@@ -42,4 +42,4 @@ class ConvertPdfEndpoint(ConvertFile2Markdown):
         else:
             raise ValueError("Unsupported file type")
 
-        return await self._converter.aconvert2markdown(pdf_bytes=pdf_bytes, filename=None)
+        return await self._converter.aconvert2markdown(file=pdf_bytes, filename=None)

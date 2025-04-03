@@ -40,7 +40,7 @@ async def convert_image_file(file_path: str, output_file: Optional[str] = None) 
     converter = inject.instance(Image2MarkdownConverter)
 
     # Pass the filename directly to the converter
-    result = await converter.aconvert2markdown(image=None, filename=file_path)
+    result = await converter.aconvert2markdown(file=None, filename=file_path)
 
     if output_file:
         with open(output_file, "w", encoding="utf-8") as f:
@@ -74,7 +74,7 @@ async def convert_pdf_file(file_path: str, output_file: Optional[str] = None) ->
     converter = inject.instance(Pdf2MarkdownConverter)
 
     # Pass the filename directly to the converter
-    result = await converter.aconvert2markdown(pdf_bytes=None, filename=file_path)
+    result = await converter.aconvert2markdown(file=None, filename=file_path)
 
     if output_file:
         with open(output_file, "w", encoding="utf-8") as f:

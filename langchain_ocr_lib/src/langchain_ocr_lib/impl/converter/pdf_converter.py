@@ -19,12 +19,12 @@ class Pdf2MarkdownConverter(File2MarkdownConverter):
         The OCR chain used to process images.
     """
 
-    async def aconvert2markdown(self, pdf_bytes: bytes | None = None, filename: str | None = None) -> str:
+    async def aconvert2markdown(self, file: bytes | None = None, filename: str | None = None) -> str:
         """Asynchronously converts a PDF file (either provided as bytes or by filename) into markdown.
 
         Parameters
         ----------
-        pdf_bytes : bytes, optional
+        file : bytes, optional
             The PDF file as bytes. Defaults to None.
         filename : str, optional
             The path to the PDF file. Defaults to None.
@@ -37,20 +37,20 @@ class Pdf2MarkdownConverter(File2MarkdownConverter):
         Raises
         ------
         ValueError
-            If neither `pdf_bytes` nor `filename` is provided.
+            If neither `file` nor `filename` is provided.
         ValueError
             If the PDF file is corrupted or the file type is unsupported.
         """
-        if pdf_bytes is None and filename is None:
+        if file is None and filename is None:
             raise ValueError("No file provided")
-        if pdf_bytes is None:
+        if file is None:
             try:
                 with open(filename, "rb") as f:
-                    pdf_bytes = f.read()
+                    file = f.read()
             except Exception as e:
                 raise ValueError("PDF corrupted or unsupported file type, %s" % e)
 
-        images = convert_from_bytes(pdf_bytes)
+        images = convert_from_bytes(file)
 
         markdown = ""
         for image in images:
@@ -62,12 +62,12 @@ class Pdf2MarkdownConverter(File2MarkdownConverter):
             markdown += response.content
         return markdown
 
-    def convert2markdown(self, pdf_bytes: bytes | None = None, filename: str | None = None) -> str:
+    def convert2markdown(self, file: bytes | None = None, filename: str | None = None) -> str:
         """Convert a PDF file (either provided as bytes or by filename) into markdown.
 
         Parameters
         ----------
-        pdf_bytes : bytes, optional
+        file : bytes, optional
             The PDF file as bytes. Defaults to None.
         filename : str, optional
             The path to the PDF file. Defaults to None.
@@ -80,20 +80,20 @@ class Pdf2MarkdownConverter(File2MarkdownConverter):
         Raises
         ------
         ValueError
-            If neither `pdf_bytes` nor `filename` is provided.
+            If neither `file` nor `filename` is provided.
         ValueError
             If the PDF file is corrupted or the file type is unsupported.
         """
-        if pdf_bytes is None and filename is None:
+        if file is None and filename is None:
             raise ValueError("No file provided")
-        if pdf_bytes is None:
+        if file is None:
             try:
                 with open(filename, "rb") as f:
-                    pdf_bytes = f.read()
+                    file = f.read()
             except Exception as e:
                 raise ValueError("PDF corrupted or unsupported file type") from e
 
-        images = convert_from_bytes(pdf_bytes)
+        images = convert_from_bytes(file)
 
         markdown = ""
         for image in images:
