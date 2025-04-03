@@ -47,4 +47,4 @@ class ConvertImageEndpoint(ConvertFile2Markdown):
         except Exception as e:
             raise ValueError("Image corrupted or unsupported file type: %s" % e)
 
-        return await self._converter.aconvert2markdown(image=image, filename=None)
+        return await self._converter.aconvert2markdown(file=image, filename=None)

@@ -3,6 +3,7 @@
 import logging
 from typing import Optional
 import inject
+import json
 
 from langchain.prompts import ChatPromptTemplate
 from langchain_core.language_models.llms import LLM
@@ -77,7 +78,8 @@ class LangfuseManager:
                 name=base_prompt_name,
                 prompt=self._managed_prompts[base_prompt_name],
                 config=llm_configurable_configs,
-                is_active=True,
+                labels=["production"],
+                type="text",
             )
             langfuse_prompt = self._langfuse.get_prompt(base_prompt_name)
         except Exception as error:
@@ -86,7 +88,6 @@ class LangfuseManager:
                 extra={error: error},
             )
             return None
-
         return langfuse_prompt
 
     def get_base_llm(self, name: str) -> LLM:
@@ -135,7 +136,14 @@ class LangfuseManager:
             fallback = self._managed_prompts[name]
             if isinstance(fallback, ChatPromptTemplate):
                 return fallback
-            return ChatPromptTemplate.from_template(fallback)
-
+            if isinstance(fallback, list) and len(fallback) > 0 and isinstance(fallback[0], dict) and "content" in fallback[0]:
+                image_payload = [{"type": "image_url", "image_url": {"url": "data:image/jpeg;base64,{image_data}"}}]
+                return ChatPromptTemplate.from_messages([("system", fallback[0]["content"]), ("user", image_payload)])
+            else:
+                logger.error("Unexpected structure for fallback prompt.")
+                raise ValueError("Unexpected structure for fallback prompt.")
         langchain_prompt = langfuse_prompt.get_langchain_prompt()
-        return ChatPromptTemplate.from_template(langchain_prompt)
+
+        langchain_prompt[-1] = ("user", json.loads(langchain_prompt[-1][1]))
+
+        return ChatPromptTemplate.from_messages(langchain_prompt)
