@@ -15,7 +15,7 @@ class File2MarkdownConverter(ABC):
 
         Parameters
         ----------
-        file : UploadFile
+        file : bytes
             The file to convert.
 
         Returns
@@ -36,7 +36,7 @@ class File2MarkdownConverter(ABC):
 
         Parameters
         ----------
-        file : UploadFile
+        file : bytes
             The file to convert.
 
         Returns
