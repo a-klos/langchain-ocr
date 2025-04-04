@@ -4,7 +4,7 @@ __pycache__/
 *$py.class
 
 *.png
-!logo.png
+!ocr-logo.png
 
 # C extensions
 *.so
