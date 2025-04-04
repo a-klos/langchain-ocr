@@ -82,13 +82,13 @@ Deploy the entire stack with Docker Compose:
    ```
 
 3. **Pull a Vision-Capable Model:**  
-   Ensure your model configuration matches by pulling the model (e.g., `x/llama3.2-vision:11b-instruct-fp16`):
+   Ensure your model configuration matches by pulling the model (e.g., `gemma3`):
    ```bash
    ollama pull <<model_name>>
    ```
 
 4. **Access the Services:**  
-   - **FastAPI Interface:** [http://localhost:8001/docs](http://localhost:8001/docs)  
+   - **FastAPI Interface:** [http://0.0.0.0:8081/docs](http://0.0.0.0:8081/docs)  
    - **Langfuse Dashboard:** [http://localhost:3000](http://localhost:3000)  
      (Default credentials: **Username:** user, **Password:** password123 – update as needed.)
 
