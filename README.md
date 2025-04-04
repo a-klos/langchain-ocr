@@ -17,10 +17,9 @@
    1. [CLI](#41-cli)
    2. [FastAPI Server](#42-fastapi-server)
    3. [Docker Compose Deployment](#43-docker-compose-deployment)
-5. [Development](#5-development)
-6. [Contributing](#6-contributing)
-7. [License](#7-license)
-8. [Contact](#8-contact)
+5. [Contributing](#5-contributing)
+6. [License](#6-license)
+7. [Contact](#7-contact)
 
 ## 1. Overview
 
@@ -99,25 +98,15 @@ Deploy the entire stack with Docker Compose:
    docker compose down
    ```
 
-## 5. Development
-
-For local development:
-
-**Install Dependencies:**  
-
-```bash
-poetry install --with dev
-```
-
-## 6. Contributing
+## 5. Contributing
 
 Contributions, bug reports, and feature suggestions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for details on how to get involved.
 
-## 7. License
+## 6. License
 
 Licensed under the MIT License. Refer to the [LICENSE](LICENSE) file for more information.
 
-## 8. Contact
+## 7. Contact
 
 For questions, issues, or suggestions, please open an issue on GitHub or contact the maintainer at `aklos.ocr@gmail.com`
 .
