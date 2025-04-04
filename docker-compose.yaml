@@ -6,12 +6,7 @@ services:
     ports:
       - "8081:8080"
     command: uvicorn src.langchain_ocr.main:app --host 0.0.0.0 --port 8080
-    environment:
-      - LANGFUSE_HOST=http://langfuse-web:30011
-      - OLLAMA_BASE_URL=http://ollama:11434
-      - OLLAMA_MODEL=gemma3
-      - LANGFUSE_PUBLIC_KEY=pubkey
-      - LANGFUSE_SECRET_KEY=secretkey
+    env_file: .env
     depends_on:
       postgres:
         condition: service_healthy
