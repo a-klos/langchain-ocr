@@ -53,8 +53,7 @@ Configured via `.env` or directly in shell:
 
 The configurable environment variables are shown in [`../.env.template`](../.env.template).
 
-The `.env.template`file is a template for the environment variables. You can copy it to `.env` and adjust the values as needed. Afterwards, you can run the server with the command:
-
+The `.env.template` file is a template for the environment variables. You can copy it to `.env` and adjust the values as needed. Afterwards, you can run the server with the command:
 ```bash
 PYTHONPATH=src uvicorn langchain_ocr.main:app --host 0.0.0.0 --port 8080 --env-file .env
 ```
