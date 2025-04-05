@@ -36,16 +36,9 @@ Then open:
 
 > *NOTE*: If you tryout the endpoints, you might see the following output in the terminal -- the terminal in which you have executed the uvicorn command:
 
->Error while fetching prompt 'OcrChain-label:production': [Errno -2] Name or service not known\
->Error occurred while getting prompt template from langfuse. Error:\
->{error}\
->Could not retrieve prompt template from langfuse. Using fallback value.\
->Error while fetching prompt 'OcrChain-label:production': [Errno -2] Name or service not known\
->Error occurred while getting prompt template from langfuse. Error:\
->{error}\
->Using fallback for llm\
+>Error while fetching prompt 'OcrChain-label:production': [Errno -2] Name or service not known
 
-That means, that the Langfuse service is not running/reachable. Prompt management is done via Langfuse, but if Langfuse is not available, the default prompt will be used.
+That means, that the Langfuse service is not running/reachable. Prompt management is done via Langfuse, but if Langfuse is not available, the default (fallback) prompt and LLM will be used.
 
 ### Environment Variables
 
