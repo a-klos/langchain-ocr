@@ -23,17 +23,21 @@ RUN poetry config virtualenvs.create false &&\
 
 FROM --platform=linux/amd64 python:3.11.7-bookworm
 
+RUN DEBIAN_FRONTEND=noninteractive apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends poppler-utils
+
 ENV POETRY_VIRTUALENVS_PATH=/app/.venv
 ENV VIRTUAL_ENV="${POETRY_VIRTUALENVS_PATH}"
 
 
 WORKDIR /app
 
-COPY --from=builder ${POETRY_VIRTUALENVS_PATH} ${POETRY_VIRTUALENVS_PATH}
+
+COPY --from=builder /app/.venv /app/.venv
 ENV PATH="${POETRY_VIRTUALENVS_PATH}/bin:$PATH"
 
 COPY api api
 
 WORKDIR /app/api
 
-CMD ["/app/.venv/bin/python", "-m", "uvicorn", "src.langchain_ocr.main:app", "--host", "0.0.0.0", "--port", "8081"]
+CMD ["/app/.venv/bin/python", "-m", "uvicorn", "src.langchain_ocr.main:app", "--host", "0.0.0.0", "--port", "8080"]
