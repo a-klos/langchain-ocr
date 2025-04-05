@@ -41,7 +41,7 @@ Then open:
 >{error}\
 >Could not retrieve prompt template from langfuse. Using fallback value.\
 >Error while fetching prompt 'OcrChain-label:production': [Errno -2] Name or service not known\
->Error occured while getting prompt template from langfuse. Error:\
+>Error occurred while getting prompt template from langfuse. Error:\
 >{error}\
 >Using fallback for llm\
 
