@@ -78,8 +78,7 @@ docker run --net=host -it --rm api
 API will be accessible at:  
 [http://localhost:8080/docs](http://localhost:8080/docs)
 
->*NOTE*: The evironment variables can be passed to the container via the `--env-file` option. For example:
-
+>*NOTE*: The environment variables can be passed to the container via the `--env-file` option. For example:
 ```bash
 docker run --net=host -it --rm --env-file .env api
 ```
