@@ -37,7 +37,7 @@ Then open:
 > *NOTE*: If you tryout the endpoints, you might see the following output in the terminal -- the terminal in which you have executed the uvicorn command:
 
 >Error while fetching prompt 'OcrChain-label:production': [Errno -2] Name or service not known\
->Error occured while getting prompt template from langfuse. Error:\
+>Error occurred while getting prompt template from langfuse. Error:\
 >{error}\
 >Could not retrieve prompt template from langfuse. Using fallback value.\
 >Error while fetching prompt 'OcrChain-label:production': [Errno -2] Name or service not known\
