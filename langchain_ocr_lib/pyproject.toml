@@ -12,6 +12,7 @@ description = ""
 authors = ["Andreas Klos <aklos@outlook.de>"]
 readme = "README.md"
 packages = [{ include = "langchain_ocr_lib", from = "src" }]
+license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.11"

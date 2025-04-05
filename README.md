@@ -38,13 +38,13 @@ LangChain-OCR leverages vision LLMs to deliver high-quality OCR conversion from 
 
 ## 3. Installation
 
-### 3.1. Prerequisites
+### 3.1 Prerequisites
 
 - **Python:** 3.11 or higher (refer to [api/.python-version](api/.python-version))
 - **Dependency Manager:** [Poetry](https://python-poetry.org/)
 - **Docker & Docker Compose:** For containerized deployment
 
-### 3.2. Cloning & Environment Setup
+### 3.2 Cloning & Environment Setup
 
 Clone the repository and configure your environment:
 
@@ -60,15 +60,15 @@ Edit the `.env` file as necessary to adjust language settings, model configurati
 
 LangChain-OCR can be employed in different ways:
 
-### 4.1. CLI
+### 4.1 CLI
 
 For quick OCR tasks via the command line, see the [CLI documentation](langchain_ocr_lib/README.md).
 
-### 4.2. FastAPI Server
+### 4.2 FastAPI Server
 
 Launch the FastAPI backend to access OCR functionality through a RESTful API. Detailed instructions are provided in the [FastAPI README](api/README.md).
 
-### 4.3. Docker Compose Deployment
+### 4.3 Docker Compose Deployment
 
 Deploy the entire stack with Docker Compose:
 
@@ -108,5 +108,4 @@ Licensed under the MIT License. Refer to the [LICENSE](LICENSE) file for more in
 
 ## 7. Contact
 
-For questions, issues, or suggestions, please open an issue on GitHub or contact the maintainer at `aklos.ocr@gmail.com`
-.
+For questions, issues, or suggestions, please open an issue on GitHub or contact the maintainer at `aklos.ocr@gmail.com`.
