@@ -68,8 +68,7 @@ You can configure the package by setting environment variables. Configuration op
 
 ## 4. Usage
 
-Remeber that you need to pull the configured LLM model first. With Ollama, you can do this with:
-
+Remember that you need to pull the configured LLM model first. With Ollama, you can do this with:
 ```bash
 ollama pull <model_name>
 ```
