@@ -5,6 +5,7 @@ __pycache__/
 
 *.png
 !ocr-logo.png
+!invoice.png
 
 # C extensions
 *.so

@@ -4,6 +4,7 @@ from fastapi import UploadFile
 import inject
 import io
 from PIL import Image
+from langchain_ocr_lib.di_binding_keys.binding_keys import ImageConverterKey
 from langchain_ocr_lib.impl.converter.image_converter import Image2MarkdownConverter
 
 from langchain_ocr.api_endpoints.convert_base import ConvertFile2Markdown
@@ -19,7 +20,7 @@ class ConvertImageEndpoint(ConvertFile2Markdown):
         This converter is responsible for performing the actual image to markdown conversion.
     """
 
-    _converter: Image2MarkdownConverter = inject.attr("ImageConverter")
+    _converter: Image2MarkdownConverter = inject.attr(ImageConverterKey)
 
     async def aconvert2markdown(self, body: UploadFile) -> str:
         """Asynchronously converts an uploaded image to markdown format.
