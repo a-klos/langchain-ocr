@@ -10,6 +10,9 @@ from langchain_core.language_models.llms import LLM
 from langfuse.api.resources.commons.errors.not_found_error import NotFoundError
 from langfuse.model import ChatPromptClient
 
+from langchain_ocr_lib.di_binding_keys.binding_keys import LangfuseClientKey, LargeLanguageModelKey
+
+
 logger = logging.getLogger(__name__)
 
 
@@ -23,8 +26,8 @@ class LangfuseManager:
     """
 
     API_KEY_FILTER: str = "api_key"
-    _llm = inject.attr("LargeLanguageModel")
-    _langfuse = inject.attr("LangfuseClient")
+    _llm = inject.attr(LargeLanguageModelKey)
+    _langfuse = inject.attr(LangfuseClientKey)
 
     def __init__(
         self,

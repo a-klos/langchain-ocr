@@ -1,6 +1,6 @@
 # langchain_ocr_lib
 
-**langchain_ocr_lib** is the OCR processing engine behind LangChain-OCR. It provides a modular, vision-LLM-powered pipeline to convert image and PDF documents into clean Markdown. Designed for direct CLI usage or integration into larger LangChain-based applications.
+**langchain_ocr_lib** is the OCR processing engine behind LangChain-OCR. It provides a modular, vision-LLM-powered Chain to convert image and PDF documents into clean Markdown. Designed for direct CLI usage or integration into larger applications.
 
 ## Table of Contents
 
@@ -21,17 +21,18 @@
 
 ## 1. Overview
 
-This package offers the core functionality to extract text from visual documents using LLMs and convert it into Markdown. It includes file loading, OCR inference, Markdown postprocessing, and environment-configurable components — all in a single pipeline.
+This package offers the core functionality to extract text from documents using vision LLMs and convert it into Markdown. It is highly configurable by environment variables and its design based on dependency injection, that  allows you to easily swap out components. The package is designed to be used as a library, but it also provides a command-line interface (CLI) for easy local execution.
 
 ---
 
 ## 2. Features
 
-- **Vision-Language OCR:** Support for OpenAI, HuggingFace, and custom extractors
+- **Vision-Language OCR:** Supports Ollama. Other LLM providers will be added soon.
 - **CLI Interface:** Simple local execution via command line or container
-- **Pluggable Architecture:** Swap extractors, loaders, and formatters easily
-- **LangChain Ready:** Integrates with LangChain agents or workflows
-- **Markdown Output:** Outputs well-formatted Markdown text, not raw OCR
+- **Highly Configurable:** Use environment variables to configure the OCR
+- **Dependency Injection:** Easily swap out components for custom implementations
+- **LangChain:** Integrates with LangChain
+- **Markdown Output:** Outputs well-formatted Markdown text
 
 ---
 
@@ -41,17 +42,27 @@ This package offers the core functionality to extract text from visual documents
 
 - **Python:** 3.11+
 - **Poetry:** [Install Poetry](https://python-poetry.org/docs/)
-- (Optional) **Docker:** For containerized CLI usage
+- **Docker:** For containerized CLI usage (optional)
+- **Ollama:** Follow instructions [here](https://ollama.com)
+- **Langfuse:** Different options for self hosting, see [here](https://langfuse.com/self-hosting) (optional, for observability)
 
 ### 3.2 Environment Setup
 
-Clone and install dependencies with Poetry:
+The package is published on PyPI, so you can install it directly with pip:
+
+```bash
+pip install langchain-ocr-lib
+```
+However, if you want to run the latest version or contribute to the project, you can clone the repository and install it locally.
 
 ```bash
 git clone https://github.com/a-klos/langchain-ocr.git
-cd langchain-ocr
-poetry install
+cd langchain-ocr/langchain_ocr_lib
+poetry install --with dev
 ```
+
+You can configure the package by setting environment variables. Configuration options are shown in the [`.env.template`](../.env.template) file. 
+
 
 ---
 
@@ -62,9 +73,7 @@ poetry install
 Run OCR locally from the terminal:
 
 ```bash
-poetry run python -m langchain_ocr_lib.cli \
-  --input path/to/input.jpg \
-  --output path/to/output.md
+langchain-ocr <<input_file>> 
 ```
 
 Supports:
@@ -72,14 +81,63 @@ Supports:
 
 ### 4.2 Python Module
 
-Use the pipeline programmatically:
+Use the the library programmatically:
 
 ```python
-from langchain_ocr_lib.pipeline import OCRPipeline
+import inject
 
-ocr = OCRPipeline()
-markdown = ocr.run("invoice.png")
+import configure_di
+from langchain_ocr_lib.di_config import configure_di
+from langchain_ocr_lib.di_binding_keys.binding_keys import PdfConverterKey
+from langchain_ocr_lib.impl.converter.pdf_converter import Pdf2MarkdownConverter
+
+
+configure_di() #This sets up the dependency injection
+
+class Converter:
+    _converter: Pdf2MarkdownConverter = inject.attr(PdfConverterKey)
+    def convert(self, filename: str) -> str:
+        return self._converter.convert2markdown(filename=filename)
+
+converter = Converter()
+markdown = converter.convert("../docs/invoice.pdf") # Adjust the file path as needed
 print(markdown)
+```
+
+The `configure_di()` function sets up the dependency injection for the library. The dependencies can be easily swapped out or appended with new dependencies. See [../api/src/langchain_ocr/di_config.py](../api/src/langchain_ocr/di_config.py) for more details on how to add new dependencies.
+
+Swapping out the dependencies can be done as follows:
+
+```python
+import inject
+from inject import Binder
+
+from langchain_ocr_lib.di_config import lib_di_config, PdfConverterKey
+from langchain_ocr_lib.impl.converter.pdf_converter import Pdf2MarkdownConverter
+
+
+class MyPdfConverter(Pdf2MarkdownConverter):
+    def convert(self, filename: str) -> None:
+        markdown = self.convert2markdown(filename=filename)
+        print(markdown)
+
+def _api_specific_config(binder: Binder):
+    binder.install(lib_di_config)  # Install all default bindings
+    binder.bind(PdfConverterKey, MyPdfConverter())  # Then override PdfConverter
+
+def configure():
+    """Configure the dependency injection container."""
+    inject.configure(_api_specific_config, allow_override=True, clear=True)
+
+configure()
+
+class Converter:
+    _converter: MyPdfConverter = inject.attr(PdfConverterKey)
+    def convert(self, filename: str) -> None:
+        self._converter.convert(filename=filename)
+
+converter = Converter()
+converter.convert("../docs/invoice.pdf") # Adjust the file path as needed
 ```
 
 ### 4.3 Docker

@@ -3,11 +3,13 @@
 from abc import ABC, abstractmethod
 import inject
 
+from langchain_ocr_lib.di_binding_keys.binding_keys import LangfuseTracedChainKey
+
 
 class File2MarkdownConverter(ABC):
     """Abstract base class for the File2MarkdownConverter class."""
 
-    _chain = inject.attr("LangfuseTracedChain")
+    _chain = inject.attr(LangfuseTracedChainKey)
 
     @abstractmethod
     async def aconvert2markdown(self, file: bytes) -> str:

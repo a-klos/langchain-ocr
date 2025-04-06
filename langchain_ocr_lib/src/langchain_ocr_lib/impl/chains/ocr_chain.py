@@ -7,6 +7,7 @@ from langchain_core.runnables.utils import Input
 import inject
 
 from langchain_ocr_lib.chains.chain import Chain
+from langchain_ocr_lib.di_binding_keys.binding_keys import LangfuseManagerKey
 
 RunnableInput = Input  # TODO: adjust properly
 RunnableOutput = str
@@ -15,7 +16,7 @@ RunnableOutput = str
 class OcrChain(Chain[RunnableInput, RunnableOutput]):
     """Base class for LLM answer generation chain."""
 
-    _langfuse_manager = inject.attr("LangfuseManager")
+    _langfuse_manager = inject.attr(LangfuseManagerKey)
 
     def __init__(self):
         """Initialize the AnswerGenerationChain.

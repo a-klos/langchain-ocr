@@ -2,6 +2,7 @@
 
 from fastapi import UploadFile
 import inject
+from langchain_ocr_lib.di_binding_keys.binding_keys import PdfConverterKey
 from langchain_ocr_lib.impl.converter.pdf_converter import Pdf2MarkdownConverter
 
 from langchain_ocr.api_endpoints.convert_base import ConvertFile2Markdown
@@ -16,7 +17,7 @@ class ConvertPdfEndpoint(ConvertFile2Markdown):
         An injected dependency of Pdf2MarkdownConverter used for the conversion.
     """
 
-    _converter: Pdf2MarkdownConverter = inject.attr("PdfConverter")
+    _converter: Pdf2MarkdownConverter = inject.attr(PdfConverterKey)
 
     async def aconvert2markdown(self, body: UploadFile) -> str:
         """Asynchronously converts a PDF file to Markdown format.

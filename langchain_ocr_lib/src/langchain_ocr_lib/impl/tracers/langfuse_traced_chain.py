@@ -8,6 +8,7 @@ from langfuse.callback import CallbackHandler
 
 from langchain_ocr_lib.impl.settings.langfuse_settings import LangfuseSettings
 from langchain_ocr_lib.tracers.traced_chain import TracedChain
+from langchain_ocr_lib.di_config import OcrChainKey
 
 
 class LangfuseTracedChain(TracedChain):
@@ -23,7 +24,7 @@ class LangfuseTracedChain(TracedChain):
     """
 
     CONFIG_CALLBACK_KEY = "callbacks"
-    _inner_chain = inject.attr("OcrChain")
+    _inner_chain = inject.attr(OcrChainKey)
 
     def __init__(self, settings: LangfuseSettings):
         super().__init__()

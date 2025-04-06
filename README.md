@@ -82,7 +82,7 @@ Deploy the entire stack with Docker Compose:
    ```
 
 3. **Pull a Vision-Capable Model:**  
-   Ensure your model configuration matches by pulling the model (e.g., `gemma3`):
+   Ensure your model configuration matches by pulling the model (e.g., `gemma3:4b-it-q4_K_M`):
    ```bash
    ollama pull <<model_name>>
    ```
