@@ -68,6 +68,17 @@ You can configure the package by setting environment variables. Configuration op
 
 ## 4. Usage
 
+Remeber that you need to pull the configured LLM model first. With Ollama, you can do this with:
+
+```bash
+ollama pull <model_name>
+```
+For example, to pull the `gemma3:4b-it-q4_K_M` model, run:
+
+```bash
+ollama pull gemma3:4b-it-q4_K_M
+```
+
 ### 4.1 CLI
 
 Run OCR locally from the terminal:
@@ -145,8 +156,6 @@ converter.convert("../docs/invoice.pdf") # Adjust the file path as needed
 Run OCR via Docker without local Python setup:
 
 ```bash
-docker build -t langchain-ocr-cli -f langchain_ocr_lib/Dockerfile .
-docker run --rm -v $(pwd):/data langchain-ocr-cli \
-  --input /data/samples/invoice.png \
-  --output /data/output/invoice.md
+docker build -t ocr -f langchain_ocr_lib/Dockerfile .
+docker run --net=host -it --rm -v ./docs:/app/docs:ro ocr docs/invoice.png
 ```
