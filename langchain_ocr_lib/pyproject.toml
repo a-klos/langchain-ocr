@@ -1,5 +1,5 @@
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core==1.8.5"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
@@ -12,6 +12,7 @@ description = ""
 authors = ["Andreas Klos <aklos@outlook.de>"]
 readme = "README.md"
 packages = [{ include = "langchain_ocr_lib", from = "src" }]
+license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -71,9 +72,8 @@ docstring-quotes = '"""'
 multiline-quotes = '"""'
 dictionaries = ["en_US", "python", "technical", "pandas"]
 ban-relative-imports = true
-per-file-ignores = """
+per-file-ignores = """src/langchain_ocr_lib/di_binding_keys/binding_keys.py: D101"""
 
-"""
 
 [tool.black]
 line-length = 120

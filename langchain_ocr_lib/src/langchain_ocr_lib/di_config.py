@@ -2,6 +2,15 @@
 
 from inject import Binder
 import inject
+from langchain_ocr_lib.di_binding_keys.binding_keys import (
+    ImageConverterKey,
+    LangfuseClientKey,
+    LangfuseManagerKey,
+    LangfuseTracedChainKey,
+    LargeLanguageModelKey,
+    OcrChainKey,
+    PdfConverterKey,
+)
 from langchain_ollama import ChatOllama
 from langchain_openai import ChatOpenAI
 from langfuse import Langfuse
@@ -46,12 +55,12 @@ def lib_di_config(binder: Binder):
         llm_instance = llm_provider(settings, ChatOpenAI)
     else:
         raise NotImplementedError("Configured LLM is not implemented")
-    binder.bind("LargeLanguageModel", llm_instance)
+    binder.bind(LargeLanguageModelKey, llm_instance)
 
     prompt = ocr_prompt_template_builder(language=language_settings.language, model_name=settings.model)
 
     binder.bind(
-        "LangfuseClient",
+        LangfuseClientKey,
         Langfuse(
             public_key=langfuse_settings.public_key,
             secret_key=langfuse_settings.secret_key,
@@ -60,7 +69,7 @@ def lib_di_config(binder: Binder):
     )
 
     binder.bind(
-        "LangfuseManager",
+        LangfuseManagerKey,
         LangfuseManager(
             managed_prompts={
                 OcrChain.__name__: prompt,
@@ -68,17 +77,17 @@ def lib_di_config(binder: Binder):
         ),
     )
 
-    binder.bind("OcrChain", OcrChain())
+    binder.bind(OcrChainKey, OcrChain())
 
     binder.bind(
-        "LangfuseTracedChain",
+        LangfuseTracedChainKey,
         LangfuseTracedChain(
             settings=langfuse_settings,
         ),
     )
 
-    binder.bind("PdfConverter", Pdf2MarkdownConverter())
-    binder.bind("ImageConverter", Image2MarkdownConverter())
+    binder.bind(PdfConverterKey, Pdf2MarkdownConverter())
+    binder.bind(ImageConverterKey, Image2MarkdownConverter())
 
 
 def configure_di():
