@@ -139,12 +139,16 @@ class LangfuseManager:
             fallback = self._managed_prompts[name]
             if isinstance(fallback, ChatPromptTemplate):
                 return fallback
-            if isinstance(fallback, list) and len(fallback) > 0 and isinstance(fallback[0], dict) and "content" in fallback[0]:
+            if (
+                isinstance(fallback, list)
+                and len(fallback) > 0
+                and isinstance(fallback[0], dict)
+                and "content" in fallback[0]
+            ):
                 image_payload = [{"type": "image_url", "image_url": {"url": "data:image/jpeg;base64,{image_data}"}}]
                 return ChatPromptTemplate.from_messages([("system", fallback[0]["content"]), ("user", image_payload)])
-            else:
-                logger.error("Unexpected structure for fallback prompt.")
-                raise ValueError("Unexpected structure for fallback prompt.")
+            logger.error("Unexpected structure for fallback prompt.")
+            raise ValueError("Unexpected structure for fallback prompt.")
         langchain_prompt = langfuse_prompt.get_langchain_prompt()
 
         langchain_prompt[-1] = ("user", json.loads(langchain_prompt[-1][1]))

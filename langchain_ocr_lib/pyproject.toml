@@ -72,9 +72,8 @@ docstring-quotes = '"""'
 multiline-quotes = '"""'
 dictionaries = ["en_US", "python", "technical", "pandas"]
 ban-relative-imports = true
-per-file-ignores = """
+per-file-ignores = """src/langchain_ocr_lib/di_binding_keys/binding_keys.py: D101"""
 
-"""
 
 [tool.black]
 line-length = 120

@@ -2,7 +2,15 @@
 
 from inject import Binder
 import inject
-from langchain_ocr_lib.di_binding_keys.binding_keys import ImageConverterKey, LangfuseClientKey, LangfuseManagerKey, LangfuseTracedChainKey, LargeLanguageModelKey, OcrChainKey, PdfConverterKey
+from langchain_ocr_lib.di_binding_keys.binding_keys import (
+    ImageConverterKey,
+    LangfuseClientKey,
+    LangfuseManagerKey,
+    LangfuseTracedChainKey,
+    LargeLanguageModelKey,
+    OcrChainKey,
+    PdfConverterKey,
+)
 from langchain_ollama import ChatOllama
 from langchain_openai import ChatOpenAI
 from langfuse import Langfuse
