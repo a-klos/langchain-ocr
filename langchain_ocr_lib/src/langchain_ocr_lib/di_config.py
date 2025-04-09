@@ -50,7 +50,7 @@ def lib_di_config(binder: Binder):
     if llm_class_type_settings.llm_type == "ollama":
         settings = OllamaSettings()
         llm_instance = llm_provider(settings, ChatOllama)
-    elif llm_class_type_settings.llm_type == "openai":
+    elif llm_class_type_settings.llm_type == "openai" or llm_class_type_settings.llm_type == "vllm":
         settings = OpenAISettings()
         llm_instance = llm_provider(settings, ChatOpenAI)
     else:

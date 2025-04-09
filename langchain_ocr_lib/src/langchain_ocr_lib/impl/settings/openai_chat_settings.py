@@ -18,8 +18,8 @@ class OpenAISettings(BaseSettings):
         Total probability mass of tokens to consider at each step.
     temperature : float
         What sampling temperature to use.
-    vision_capable : bool
-        Flag to enable a vision capable model.
+    base_url : str
+        The base URL for the OpenAI API endpoint.
     """
 
     class Config:
@@ -31,5 +31,8 @@ class OpenAISettings(BaseSettings):
     model: str = Field(default="gpt-4o-mini-search-preview-2025-03-11", description="The model identifier")
     api_key: str = Field(default="", description="The API key for authentication")
     top_p: float = Field(default=1.0, description="Total probability mass of tokens to consider at each step")
-    temperature: float = Field(default=0.7, description="What sampling temperature to use")
-    vision_capable: bool = Field(default=False, description="Enable a vision capable model")
+    temperature: float = Field(default=0, description="What sampling temperature to use")
+    base_url: str = Field(
+        default="https://api.openai.com/v1/chat/completions",
+        description="The base URL for the OpenAI API endpoint",
+    )
