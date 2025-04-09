@@ -17,6 +17,7 @@ from langfuse import Langfuse
 
 from langchain_ocr_lib.impl.chains.ocr_chain import OcrChain
 from langchain_ocr_lib.impl.settings.ollama_chat_settings import OllamaSettings
+from langchain_ocr_lib.impl.settings.vllm_chat_settings import VllmSettings
 from langchain_ocr_lib.impl.settings.openai_chat_settings import OpenAISettings
 from langchain_ocr_lib.impl.settings.llm_class_type_settings import LlmClassTypeSettings
 from langchain_ocr_lib.impl.settings.langfuse_settings import LangfuseSettings
@@ -52,6 +53,9 @@ def lib_di_config(binder: Binder):
         llm_instance = llm_provider(settings, ChatOllama)
     elif llm_class_type_settings.llm_type == "openai":
         settings = OpenAISettings()
+        llm_instance = llm_provider(settings, ChatOpenAI)
+    elif llm_class_type_settings.llm_type == "vllm":
+        settings =  VllmSettings()
         llm_instance = llm_provider(settings, ChatOpenAI)
     else:
         raise NotImplementedError("Configured LLM is not implemented")
