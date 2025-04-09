@@ -33,6 +33,6 @@ class OpenAISettings(BaseSettings):
     top_p: float = Field(default=1.0, description="Total probability mass of tokens to consider at each step")
     temperature: float = Field(default=0, description="What sampling temperature to use")
     base_url: str = Field(
-        default="https://api.openai.com/v1/chat/completions",
+        default="https://api.openai.com/v1",
         description="The base URL for the OpenAI API endpoint",
     )
