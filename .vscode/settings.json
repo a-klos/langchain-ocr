@@ -1,6 +1,7 @@
 {
     "python.testing.pytestArgs": [
-        "api"
+        "api",
+        "langchain_ocr_lib"
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true

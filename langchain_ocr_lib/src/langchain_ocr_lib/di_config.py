@@ -55,7 +55,7 @@ def lib_di_config(binder: Binder):
         settings = OpenAISettings()
         llm_instance = llm_provider(settings, ChatOpenAI)
     elif llm_class_type_settings.llm_type == "vllm":
-        settings =  VllmSettings()
+        settings = VllmSettings()
         llm_instance = llm_provider(settings, ChatOpenAI)
     else:
         raise NotImplementedError("Configured LLM is not implemented")
