@@ -93,7 +93,7 @@ class Pdf2MarkdownConverter(File2MarkdownConverter):
                 with open(filename, "rb") as f:
                     file = f.read()
             except Exception as e:
-                raise ValueError("Corrupted File, %s" % e)
+                raise ValueError("PDF corrupted or unsupported file type") from e
 
         try:
             images = convert_from_bytes(file)
