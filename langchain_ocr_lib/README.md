@@ -27,7 +27,7 @@ This package offers the core functionality to extract text from documents using 
 
 ## 2. Features
 
-- **Vision-Language OCR:** Supports Ollama. Other LLM providers will be added soon.
+- **Vision-Language OCR:** Supports Ollama, vLLM and OpenAI (and other OpenAI conform providers). Other LLM providers can be easily integrated.
 - **CLI Interface:** Simple local execution via command line or container
 - **Highly Configurable:** Use environment variables to configure the OCR
 - **Dependency Injection:** Easily swap out components for custom implementations
@@ -43,7 +43,7 @@ This package offers the core functionality to extract text from documents using 
 - **Python:** 3.11+
 - **Poetry:** [Install Poetry](https://python-poetry.org/docs/)
 - **Docker:** For containerized CLI usage (optional)
-- **Ollama:** Follow instructions [here](https://ollama.com)
+- **Ollama:** Follow instructions [here](https://ollama.com) (other LLM providers can be used as well, see [here](#2-features))
 - **Langfuse:** Different options for self hosting, see [here](https://langfuse.com/self-hosting) (optional, for observability)
 
 ### 3.2 Environment Setup

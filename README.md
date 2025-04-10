@@ -32,7 +32,7 @@ LangChain-OCR leverages vision LLMs to deliver high-quality OCR conversion from 
 - **Modern API:** Asynchronous processing built on FastAPI.
 - **Observability:** Integrated tracing via [Langfuse](https://langfuse.com/).
 - **Multilingual Support:** Configurable language settings.
-- **LLM Integration:** Supports [Ollama](https://ollama.com/) with potential for other providers.
+- **LLM Integration:** Supports [Ollama](https://ollama.com/), [vLLM](https://docs.vllm.ai/en/latest/) and [OpenAI](https://openai.com/api/) with potential for other providers.
 - **Containerization:** Ready-to-use Docker and Docker Compose configurations.
 - **CLI Access:** Quick OCR processing through the command line.
 

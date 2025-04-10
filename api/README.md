@@ -18,7 +18,7 @@ FastAPI backend that exposes an HTTP interface for the `langchain_ocr_lib` — c
 
 - **Python:** 3.11 or higher (refer to [api/.python-version](api/.python-version))
 - **Dependency Manager:** [Poetry](https://python-poetry.org/)
-- **Ollama:** For LLM model serving
+- **Ollama:** For LLM model serving. vLLM and other OpenAI conform providers are also supported.
 - **Docker:** For containerized deployment (optional)
 
 ## Usage
