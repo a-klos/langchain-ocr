@@ -52,7 +52,7 @@ def test_convert2markdown_with_file():
     # Prepare the converter with a dummy chain that asserts on the image data.
     converter = Image2MarkdownConverter()
 
-    # Call aconvert2markdown with a PIL image instance.
+    # Call convert2markdown with a PIL image instance.
     result = converter.convert2markdown(file=dummy_image)
     assert result == "dummy markdown"
 
