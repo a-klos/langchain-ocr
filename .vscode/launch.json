@@ -41,8 +41,6 @@
                 },
             ],
             "justMyCode": false,
-            "preLaunchTask": "docker-compose-debug-up",
-            "postDebugTask": "docker-compose-debug-down",
         }
     ]
 }
