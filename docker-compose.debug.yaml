@@ -5,7 +5,11 @@ services:
       dockerfile: api/Dockerfile
     ports:
       - "8081:8080"
-    command: uvicorn src.langchain_ocr.main:app --host 0.0.0.0 --port 8080
+      - "5678:5678"  # Debugpy port
+    command: python -Xfrozen_modules=off -m debugpy --listen 0.0.0.0:5678 --wait-for-client -m uvicorn src.langchain_ocr.main:app --host 0.0.0.0 --port 8080 --reload --reload-dir=/app/api --reload-dir=/app/langchain_ocr_lib
+    volumes:
+      - ./api:/app/api  # Mount local code into the container
+      - ./langchain_ocr_lib:/app/langchain_ocr_lib  # Mount local code into the container
     env_file: .env
     depends_on:
       postgres:

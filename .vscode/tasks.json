@@ -1,0 +1,29 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "docker-compose-debug-up",
+            "type": "shell",
+            "command": "sudo docker compose -f docker-compose.debug.yaml up --build -d",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "docker-compose-debug-down",
+            "type": "shell",
+            "command": "sudo docker compose -f docker-compose.debug.yaml down",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "problemMatcher": []
+        }
+    ]
+}

@@ -35,7 +35,7 @@ class OllamaSettings(BaseSettings):
         env_prefix = "OLLAMA_"
         case_sensitive = False
 
-    model: str = Field(default="gemma3:4b-it-q4_K_M")
+    model: str = Field(default="gemma3:4b-it-q4_K_M", title="LLM Model")
     base_url: str = Field(default="http://localhost:11434")
     top_k: int = Field(default=0, title="LLM Top K")
     top_p: float = Field(default=0, title="LLM Top P")

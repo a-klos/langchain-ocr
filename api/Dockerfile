@@ -1,7 +1,7 @@
 FROM --platform=linux/amd64 python:3.11.7-bookworm AS builder
 
 ENV POETRY_VIRTUALENVS_PATH=/app/.venv
-ENV POETRY_VERSION=1.8.5
+ENV POETRY_VERSION=2.1.2
 
 WORKDIR /app
 
