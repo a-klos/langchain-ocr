@@ -40,19 +40,9 @@
                     "remoteRoot": "/app/langchain_ocr_lib"
                 },
             ],
-            // "pathMappings": [
-            //     {
-            //         "localRoot": "${workspaceFolder}/api",
-            //         "remoteRoot": "/app/api"
-            //     },
-            //     {
-            //         "localRoot": "${workspaceFolder}/langchain_ocr_lib",
-            //         "remoteRoot": "/app/langchain_ocr_lib"
-            //     },
-            // ],
             "justMyCode": false,
-            // "preLaunchTask": "docker-compose-debug-up",
-            // "postDebugTask": "docker-compose-debug-down",
+            "preLaunchTask": "docker-compose-debug-up",
+            "postDebugTask": "docker-compose-debug-down",
         }
     ]
 }

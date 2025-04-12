@@ -91,7 +91,7 @@ class LangfuseManager:
         Returns
         -------
         LLM
-            The base Large Language Model. If the Langfuse prompt is not found,awdadadw
+            The base Large Language Model. If the Langfuse prompt is not found,
             returns the LLM with a fallback configuration.
         """
         langfuse_prompt = self.get_langfuse_prompt(name)
