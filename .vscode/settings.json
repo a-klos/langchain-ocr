@@ -4,5 +4,9 @@
         "langchain_ocr_lib"
     ],
     "python.testing.unittestEnabled": false,
-    "python.testing.pytestEnabled": true
+    "python.testing.pytestEnabled": true,
+    "python.analysis.extraPaths": [
+        "./api/src",
+        "./langchain_ocr_lib/src"
+    ],
 }

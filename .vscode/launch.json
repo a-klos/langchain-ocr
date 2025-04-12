@@ -17,6 +17,30 @@
             "justMyCode": false,
             "python": "${workspaceFolder}/.venv/bin/python",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "name": "Docker: Debug OCR API",
+            "type": "python",
+            "request": "attach",
+            "connect": {
+                "host": "localhost",
+                "port": 5678
+            },
+            "pathMappings": [
+                {
+                    "localRoot": "${workspaceFolder}",
+                    "remoteRoot": "/app"
+                },
+                {
+                    "localRoot": "${workspaceFolder}/api",
+                    "remoteRoot": "/app/api"
+                },
+                {
+                    "localRoot": "${workspaceFolder}/langchain_ocr_lib",
+                    "remoteRoot": "/app/langchain_ocr_lib"
+                },
+            ],
+            "justMyCode": false,
         }
     ]
 }

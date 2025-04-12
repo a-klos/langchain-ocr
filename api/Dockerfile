@@ -1,7 +1,7 @@
-FROM --platform=linux/amd64 python:3.11.7-bookworm AS builder
+FROM --platform=linux/amd64 python:3.11.11-bookworm AS builder
 
 ENV POETRY_VIRTUALENVS_PATH=/app/.venv
-ENV POETRY_VERSION=1.8.5
+ENV POETRY_VERSION=2.1.2
 
 WORKDIR /app
 
@@ -21,7 +21,7 @@ WORKDIR /app/api
 RUN poetry config virtualenvs.create false &&\
     poetry install --no-interaction --no-ansi 
 
-FROM --platform=linux/amd64 python:3.11.7-bookworm
+FROM --platform=linux/amd64 python:3.11.11-bookworm
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends poppler-utils

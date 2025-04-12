@@ -14,6 +14,7 @@ from langchain_ocr_lib.di_binding_keys.binding_keys import (
 from langchain_ollama import ChatOllama
 from langchain_openai import ChatOpenAI
 from langfuse import Langfuse
+from functools import partial
 
 from langchain_ocr_lib.impl.chains.ocr_chain import OcrChain
 from langchain_ocr_lib.impl.settings.ollama_chat_settings import OllamaSettings
@@ -50,16 +51,17 @@ def lib_di_config(binder: Binder):
 
     if llm_class_type_settings.llm_type == "ollama":
         settings = OllamaSettings()
-        llm_instance = llm_provider(settings, ChatOllama)
+        partial_llm_provider = partial(llm_provider,settings, ChatOllama)
     elif llm_class_type_settings.llm_type == "openai":
         settings = OpenAISettings()
-        llm_instance = llm_provider(settings, ChatOpenAI)
+        partial_llm_provider = partial(llm_provider,settings, ChatOpenAI)
     elif llm_class_type_settings.llm_type == "vllm":
         settings = VllmSettings()
-        llm_instance = llm_provider(settings, ChatOpenAI)
+        partial_llm_provider = partial(llm_provider,settings, ChatOpenAI)
     else:
         raise NotImplementedError("Configured LLM is not implemented")
-    binder.bind(LargeLanguageModelKey, llm_instance)
+    
+    binder.bind_to_provider(LargeLanguageModelKey, partial_llm_provider)
 
     prompt = ocr_prompt_template_builder(language=language_settings.language, model_name=settings.model)
 
