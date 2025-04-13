@@ -27,3 +27,7 @@ class LangfuseSettings(BaseSettings):
     secret_key: str = Field(default="", description="The secret key for Langfuse.")
     public_key: str = Field(default="", description="The public key for Langfuse.")
     host: str = Field(default="https://api.langchain.com", description="The host for Langfuse.")
+    enabled: bool = Field(
+        default=True,
+        description="Whether to enable Langfuse. If set to False, Langfuse will not be used.",
+    )

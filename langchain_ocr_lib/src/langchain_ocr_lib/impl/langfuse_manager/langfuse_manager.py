@@ -32,8 +32,10 @@ class LangfuseManager:
     def __init__(
         self,
         managed_prompts: dict[str, str],
+        enabled: bool = True,
     ):
         self._managed_prompts = managed_prompts
+        self._enabled = enabled
 
     def get_langfuse_prompt(self, base_prompt_name: str) -> Optional[ChatPromptClient]:
         """
@@ -56,6 +58,9 @@ class LangfuseManager:
         Exception
             If an error occurs while retrieving the prompt template from Langfuse.
         """
+        if not self._enabled:
+            logger.info("Langfuse is not enabled. Using fallback prompt.")
+            return None
         try:
             langfuse_prompt = self._langfuse.get_prompt(base_prompt_name)
         except NotFoundError:
@@ -72,10 +77,7 @@ class LangfuseManager:
             )
             langfuse_prompt = self._langfuse.get_prompt(base_prompt_name)
         except Exception as error:
-            logger.error(
-                "Error occured while getting prompt template from langfuse. Error:\n{error}",
-                extra={error: error},
-            )
+            logger.error("Error occured while getting prompt template from langfuse. Error:\n{error}")
             return None
         return langfuse_prompt
 
@@ -94,9 +96,12 @@ class LangfuseManager:
             The base Large Language Model. If the Langfuse prompt is not found,
             returns the LLM with a fallback configuration.
         """
+        if not self._enabled:
+            logger.info("Langfuse is not enabled. Using fallback LLM.")
+            return self._llm
         langfuse_prompt = self.get_langfuse_prompt(name)
         if not langfuse_prompt:
-            logger.error("Using fallback for llm")
+            logger.warning("Could not retrieve prompt template from langfuse. Using fallback LLM.")
             return self._llm
 
         return self._llm.with_config({"configurable": langfuse_prompt.config})
@@ -121,7 +126,8 @@ class LangfuseManager:
         """
         langfuse_prompt = self.get_langfuse_prompt(name)
         if not langfuse_prompt:
-            logger.error("Could not retrieve prompt template from langfuse. Using fallback value.")
+            if self._enabled:
+                logger.warning("Could not retrieve prompt template from langfuse. Using fallback value.")
             fallback = self._managed_prompts[name]
             if isinstance(fallback, ChatPromptTemplate):
                 return fallback

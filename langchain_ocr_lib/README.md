@@ -110,7 +110,7 @@ class Converter:
         return self._converter.convert2markdown(filename=filename)
 
 converter = Converter()
-markdown = converter.convert("../docs/invoice.pdf") # Adjust the file path as needed
+markdown = converter.convert("../examples/invoice.pdf") # Adjust the file path as needed
 print(markdown)
 ```
 
@@ -147,7 +147,7 @@ class Converter:
         self._converter.convert(filename=filename)
 
 converter = Converter()
-converter.convert("../docs/invoice.pdf") # Adjust the file path as needed
+converter.convert("../examples/invoice.pdf") # Adjust the file path as needed
 ```
 
 ### 4.3 Docker
@@ -156,5 +156,5 @@ Run OCR via Docker without local Python setup:
 
 ```bash
 docker build -t ocr -f langchain_ocr_lib/Dockerfile .
-docker run --net=host -it --rm -v ./docs:/app/docs:ro ocr docs/invoice.png
+docker run --net=host -it --rm -v ./examples:/app/examples:ro ocr examples/invoice.png
 ```
