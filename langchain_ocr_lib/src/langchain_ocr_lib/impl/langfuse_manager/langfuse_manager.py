@@ -77,7 +77,7 @@ class LangfuseManager:
             )
             langfuse_prompt = self._langfuse.get_prompt(base_prompt_name)
         except Exception as error:
-            logger.error("Error occurred while getting prompt template from langfuse. Error:\n{error}")
+            logger.error(f"Error occurred while getting prompt template from langfuse. Error:\n{error}")
         return langfuse_prompt
 
     def get_base_llm(self, name: str) -> LLM:
