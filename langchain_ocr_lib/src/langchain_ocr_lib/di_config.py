@@ -80,17 +80,19 @@ def lib_di_config(binder: Binder):
             managed_prompts={
                 OcrChain.__name__: prompt,
             },
+            enabled=langfuse_settings.enabled,
         ),
     )
 
-    binder.bind(OcrChainKey, OcrChain())
+    binder.bind(OcrChainKey if langfuse_settings.enabled else LangfuseTracedChainKey, OcrChain())
 
-    binder.bind(
-        LangfuseTracedChainKey,
-        LangfuseTracedChain(
-            settings=langfuse_settings,
-        ),
-    )
+    if langfuse_settings.enabled:
+        binder.bind(
+            LangfuseTracedChainKey,
+            LangfuseTracedChain(
+                settings=langfuse_settings,
+            ),
+        )
 
     binder.bind(PdfConverterKey, Pdf2MarkdownConverter())
     binder.bind(ImageConverterKey, Image2MarkdownConverter())
