@@ -1,6 +1,10 @@
-# langchain_ocr_lib
+# langchain-ocr-lib
 
-**langchain_ocr_lib** is the OCR processing engine behind LangChain-OCR. It provides a modular, vision-LLM-powered Chain to convert image and PDF documents into clean Markdown. Designed for direct CLI usage or integration into larger applications.
+**langchain-ocr-lib** is the OCR processing engine behind LangChain-OCR. It provides a modular, vision-LLM-powered Chain to convert image and PDF documents into clean Markdown. Designed for direct CLI usage or integration into larger applications.
+
+<div align="center">
+  <img src="./images/logo.png" alt="Logo" style="width:30%;">
+</div>
 
 ## Table of Contents
 
