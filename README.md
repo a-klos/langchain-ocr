@@ -1,5 +1,28 @@
 # LangChain-OCR
 
+<p align="center">
+   <a href="https://github.com/a-klos/langchain-ocr/blob/aec379b25dc101accc04a0b0568ecf95fca26a48/LICENSE">
+   <img src="https://img.shields.io/badge/License-MIT-E11311.svg" alt="MIT License">
+   </a>
+   <a href="https://pypi.org/project/langchain-ocr-lib/">
+  <img src="https://img.shields.io/pypi/dm/langchain-ocr-lib?logo=python&logoColor=white&label=pypi%20langchain-ocr-lib&color=blue" alt="langchain-ocr-lib Python package on PyPi">
+   </a>
+   <a href="https://discord.gg/98dTaPgR" target="_blank">
+   <img src="https://img.shields.io/discord/1361307926677028864?logo=discord&labelColor=%20%235462eb&logoColor=%20%23f5f5f5&color=%20%235462eb"
+      alt="chat on Discord">
+   </a>
+   <a href="https://www.linkedin.com/in/andreas-klos/" target="_blank">
+   <img src="https://custom-icon-badges.demolab.com/badge/LinkedIn-0A66C2?logo=linkedin-white&logoColor=fff" alt="follow on LinkedIn">
+   </a>   
+   <br>
+   <a href="https://github.com/a-klos/langchain-ocr/graphs/commit-activity" target="_blank">
+   <img alt="Commits last month" src="https://img.shields.io/github/commit-activity/m/a-klos/langchain-ocr?labelColor=%20%2332b583&color=%20%2312b76a"></a>
+   <a href="https://github.com/a-klos/langchain-ocr-lib/" target="_blank">
+   <img alt="Issues closed" src="https://img.shields.io/github/issues-search?query=repo%3Aa-klos%2Flangchain-ocr%20is%3Aclosed&label=issues%20closed&labelColor=%20%237d89b0&color=%20%235d6b98"></a>
+   <a href="https://github.com/a-klos/langchain-ocr/discussions/" target="_blank">
+   <img alt="Discussion posts" src="https://img.shields.io/github/discussions/a-klos/langchain-ocr?labelColor=%20%239b8afb&color=%20%237a5af8"></a>
+</p>
+
 **LangChain-OCR** is an advanced OCR solution that converts PDFs and image files into Markdown using cutting-edge vision LLMs. The project comprises two main components: the OCR library (usable via CLI) and a FastAPI backend that offers a streamlined interface for file uploads and processing.
 
 <div align="center">

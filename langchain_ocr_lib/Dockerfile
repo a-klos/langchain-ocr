@@ -16,7 +16,7 @@ COPY langchain_ocr_lib .
 RUN poetry config virtualenvs.create false &&\
     poetry install --no-interaction --no-ansi
 
-FROM --platform=linux/amd64 python:3.11.11-bookworm
+FROM --platform=linux/amd64 python:3.11.11-bookworm as runner
 
 ENV POETRY_VIRTUALENVS_PATH=/app/.venv
 
