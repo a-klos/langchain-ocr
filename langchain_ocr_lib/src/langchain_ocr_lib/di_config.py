@@ -54,22 +54,22 @@ def lib_di_config(binder: Binder):
     if llm_class_type_settings.llm_type == "ollama":
         settings = OllamaSettings()
         model_name = settings.model
-        partial_llm_provider = partial(llm_provider,settings, ChatOllama)
+        partial_llm_provider = partial(llm_provider, settings, ChatOllama)
     elif llm_class_type_settings.llm_type == "openai":
         settings = OpenAISettings()
         model_name = settings.model_name
-        partial_llm_provider = partial(llm_provider,settings, ChatOpenAI)
+        partial_llm_provider = partial(llm_provider, settings, ChatOpenAI)
     elif llm_class_type_settings.llm_type == "vllm":
         settings = VllmSettings()
         model_name = settings.model_name
-        partial_llm_provider = partial(llm_provider,settings, ChatOpenAI)
+        partial_llm_provider = partial(llm_provider, settings, ChatOpenAI)
     elif llm_class_type_settings.llm_type == "together-ai":
         settings = TogetherAISettings()
         model_name = settings.model_name
-        partial_llm_provider = partial(llm_provider,settings, ChatTogether)
+        partial_llm_provider = partial(llm_provider, settings, ChatTogether)
     else:
         raise NotImplementedError("Configured LLM is not implemented")
-    
+
     binder.bind_to_provider(LargeLanguageModelKey, partial_llm_provider)
 
     prompt = ocr_prompt_template_builder(language=language_settings.language, model_name=model_name)

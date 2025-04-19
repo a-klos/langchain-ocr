@@ -35,15 +35,9 @@ class TogetherAISettings(BaseSettings):
     )
     together_api_key: str = Field(default="", description="The API key for authentication")
     top_p: float = Field(
-        default=1.0,
-        description="Total probability mass of tokens to consider at each step",
-        title="Top P"
+        default=1.0, description="Total probability mass of tokens to consider at each step", title="Top P"
     )
-    temperature: float = Field(
-        default=0,
-        description="What sampling temperature to use",
-        title="Temperature"
-    )
+    temperature: float = Field(default=0, description="What sampling temperature to use", title="Temperature")
     together_api_base: str = Field(
         default="https://api.together.xyz/v1/",
         env="API_BASE",
