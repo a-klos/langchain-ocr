@@ -12,13 +12,13 @@ class TogetherAISettings(BaseSettings):
     ----------
     model_name : str
         The Together AI model identifier.
-    api_key : str
+    together_api_key : str
         The API key for authentication.
     top_p : float
         Total probability mass of tokens to consider at each step.
     temperature : float
         What sampling temperature to use.
-    base_url : str
+    together_api_base : str
         The base URL for the Together AI API endpoint.
     """
 
