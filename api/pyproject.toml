@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "langchain-ocr"
-version = "0.1.0"
+version = "0.3.3"
 description = "Langchain OCR API"
 authors = ["Andreas Klos"]
 packages = [{ include = "langchain_ocr", from = "src" }]

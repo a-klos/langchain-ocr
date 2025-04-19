@@ -58,9 +58,10 @@ class LangfuseManager:
         Exception
             If an error occurs while retrieving the prompt template from Langfuse.
         """
+        langfuse_prompt = None
         if not self._enabled:
             logger.info("Langfuse is not enabled. Using fallback prompt.")
-            return None
+            return langfuse_prompt
         try:
             langfuse_prompt = self._langfuse.get_prompt(base_prompt_name)
         except NotFoundError:
