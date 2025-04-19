@@ -43,6 +43,7 @@ def get_configurable_fields_from(settings: BaseSettings) -> dict[str, Configurab
         settings_of_interest = settings.model_fields[field_name]
         if settings_of_interest.title is not None:
             _fields[field_name] = ConfigurableField(id=field_name, name=settings_of_interest.title)
+    
     return _fields
 
 
