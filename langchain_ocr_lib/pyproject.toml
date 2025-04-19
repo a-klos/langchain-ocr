@@ -7,7 +7,7 @@ langchain-ocr = "langchain_ocr_lib.main:main"
 
 [tool.poetry]
 name = "langchain-ocr-lib"
-version = "0.3.3"
+version = "0.4.0"
 description = "Modular, vision-LLM-powered chain to convert image and PDF documents into clean Markdown."
 authors = ["Andreas Klos <aklos@outlook.de>"]
 readme = "README.md"
@@ -28,6 +28,7 @@ langfuse = "^2.59.7"
 pycountry = "^24.6.1"
 pdf2image = "^1.17.0"
 inject = "^5.2.1"
+langchain-together = "^0.3.0"
 
 [tool.poetry.group.dev.dependencies]
 debugpy = "^1.8.1"

@@ -35,7 +35,9 @@ class OpenAISettings(BaseSettings):
         title="LLM Model",
     )
     api_key: str = Field(default="", description="The API key for authentication")
-    top_p: float = Field(default=1.0, description="Total probability mass of tokens to consider at each step", title="Top P")
+    top_p: float = Field(
+        default=1.0, description="Total probability mass of tokens to consider at each step", title="Top P"
+    )
     temperature: float = Field(default=0, description="What sampling temperature to use", title="Temperature")
     base_url: str = Field(
         default="https://api.openai.com/v1",

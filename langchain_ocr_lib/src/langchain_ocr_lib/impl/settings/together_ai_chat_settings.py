@@ -1,45 +1,45 @@
-"""Module contains settings regarding the Vllm API."""
+"""Module contains settings regarding the Together AI API."""
 
 from pydantic import Field
 from pydantic_settings import BaseSettings
 
 
-class VllmSettings(BaseSettings):
+class TogetherAISettings(BaseSettings):
     """
-    Contains settings regarding the Vllm API.
+    Contains settings regarding the Together AI API.
 
     Attributes
     ----------
     model_name : str
-        The model identifier.
-    api_key : str
+        The Together AI model identifier.
+    together_api_key : str
         The API key for authentication.
     top_p : float
         Total probability mass of tokens to consider at each step.
     temperature : float
         What sampling temperature to use.
-    base_url : str
-        The base URL for the Vllm API endpoint.
+    together_api_base : str
+        The base URL for the Together AI API endpoint.
     """
 
     class Config:
         """Config class for reading fields from environment variables."""
 
-        env_prefix = "VLLM_"
+        env_prefix = "TOGETHER_"
         case_sensitive = False
 
     model_name: str = Field(
         default="",
-        env="MODEL",
-        description="The model identifier",
-        title="LLM Model",
+        description="The Together AI model identifier",
+        title="Together AI Model",
     )
-    api_key: str = Field(default="", description="The API key for authentication")
+    together_api_key: str = Field(default="", description="The API key for authentication")
     top_p: float = Field(
         default=1.0, description="Total probability mass of tokens to consider at each step", title="Top P"
     )
     temperature: float = Field(default=0, description="What sampling temperature to use", title="Temperature")
-    base_url: str = Field(
-        default="http://localhost:8000/v1",
-        description="The base URL for the Vllm API endpoint",
+    together_api_base: str = Field(
+        default="https://api.together.xyz/v1/",
+        env="API_BASE",
+        description="The base URL for the Together AI API endpoint",
     )
