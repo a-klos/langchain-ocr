@@ -63,7 +63,7 @@ def lib_di_config(binder: Binder):
         settings = VllmSettings()
         model_name = settings.model_name
         partial_llm_provider = partial(llm_provider, settings, ChatOpenAI)
-    elif llm_class_type_settings.llm_type == "together-ai":
+    elif llm_class_type_settings.llm_type == "togetherai":
         settings = TogetherAISettings()
         model_name = settings.model_name
         partial_llm_provider = partial(llm_provider, settings, ChatTogether)
