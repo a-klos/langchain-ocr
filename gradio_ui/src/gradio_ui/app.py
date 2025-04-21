@@ -10,38 +10,29 @@ def perform_ocr(doc: str) -> str:
     return converter.convert(filename=doc)
 
 
-def build_ui() -> gr.Blocks:
+def main():
     with gr.Blocks(
-        title="Langchain-OCR",
+        title="Langchain-OCR Playground",
         theme=gr.themes.Soft(primary_hue="blue", secondary_hue="cyan"),
     ) as demo:
-        gr.Markdown("# LangChain-OCR show case")
+        gr.Markdown("# 📄 LangChain-OCR Playground")
         gr.Markdown(
             """
-            Upload a PDF or image file. The application will:
-            1. perform OCR powered by TogetherAI`s Llama Vision 11B
-            2. output structured text in markdown format
+            Upload a PDF file and extract structured text using LLM-powered OCR.
+            
+            The application will convert your document to markdown format.
             """
         )
         dir_ = Path(__file__).parent
         gr.Interface(
             perform_ocr,
-            [PDF(label="Document")],
-            gr.Textbox(lines=8, label="Markdown output"),
+            [PDF(label="PDF Document")],
+            gr.Markdown(label="Output (Markdown)",min_height=270, container=True, show_copy_button=True),
             examples=[
                 [str(dir_ / "examples" / "invoice.pdf")],
                 [str(dir_ / "examples" / "invoice-hw.pdf")],
             ],
         )
-
-        return demo
-
-
-def main():
-    demo = build_ui()
-    import sys
-
-    setattr(sys.modules[__name__], "demo", demo)
     demo.launch()
 
 
