@@ -10,4 +10,4 @@ class LLMType(StrEnum):
     OLLAMA = "ollama"
     OPENAI = "openai"
     VLLM = "vllm"
-    TOGETHER_AI = "together-ai"
+    TOGETHERAI = "togetherai"
