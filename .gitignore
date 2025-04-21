@@ -6,6 +6,9 @@ __pycache__/
 *.png
 !ocr-logo.png
 !invoice.png
+!invoice-hw.png
+
+**/.gradio
 
 # C extensions
 *.so
