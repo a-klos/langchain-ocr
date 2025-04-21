@@ -19,7 +19,7 @@ class LlmClassTypeSettings(BaseSettings):
     class Config:
         """Config class for reading Fields from env."""
 
-        env_prefix = "RAG_CLASS_TYPE_"
+        env_prefix = "LLM_CLASS_TYPE_"
         case_sensitive = False
 
     llm_type: LLMType = Field(

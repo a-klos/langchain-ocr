@@ -100,7 +100,6 @@ Use the the library programmatically:
 ```python
 import inject
 
-import configure_di
 from langchain_ocr_lib.di_config import configure_di
 from langchain_ocr_lib.di_binding_keys.binding_keys import PdfConverterKey
 from langchain_ocr_lib.impl.converter.pdf_converter import Pdf2MarkdownConverter
