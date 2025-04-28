@@ -1,25 +1,22 @@
-[project]
-name = "gradio-ui"
-version = "0.1.0"
-description = ""
-authors = [
-    {name = "Andreas Klos",email = "aklos@outlook.de"}
-]
-license = {text = "MIT"}
-readme = "README.md"
-requires-python = ">=3.11,<4.0"
-dependencies = [
-    "gradio (>=5.25.2,<6.0.0)",
-    "gradio-pdf (>=0.0.22,<0.0.23)",
-    "langchain-ocr-lib (>=0.4.1,<0.5.0)",
-    "pdf2image (>=1.17.0,<2.0.0)",
-    "pypdf2 (>=3.0.1,<4.0.0)"
-]
-
-
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "gradio-ui"
+version = "0.1.0"
+description = "This is the Gradio UI for Langchain OCR."
+authors = ["Andreas Klos <aklos@outlook.de>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.11,<4.0"
+gradio = ">=5.25.2,<6.0.0"
+gradio-pdf = ">=0.0.22,<0.0.23"
+langchain-ocr-lib = ">=0.4.1,<0.5.0"
+pdf2image = ">=1.17.0,<2.0.0"
+pypdf2 = ">=3.0.1,<4.0.0"
 
 [tool.poetry.group.dev.dependencies]
 debugpy = "^1.8.1"
@@ -48,7 +45,6 @@ flake8-tidy-imports = "^4.10.0"
 black = "^23.9.1"
 # flake8-logging-format = "^2024.24.12"
 flake8-docstrings = "^1.7.0"
-
 
 [tool.flake8]
 exclude= [".eggs", "tests", ".git", ".hg", ".mypy_cache", ".tox", ".venv", ".devcontainer", "venv", "_build", "buck-out", "build", "dist", "**/__init__.py"]
