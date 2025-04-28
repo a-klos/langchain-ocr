@@ -40,6 +40,7 @@
    1. [CLI](#41-cli)
    2. [FastAPI Server](#42-fastapi-server)
    3. [Docker Compose Deployment](#43-docker-compose-deployment)
+   4. [Gradio UI](#44-gradio-ui)
 5. [Contributing](#5-contributing)
 6. [License](#6-license)
 7. [Contact](#7-contact)
@@ -119,6 +120,25 @@ Deploy the entire stack with Docker Compose:
    When done, clean up with:
    ```bash
    docker compose down
+   ```
+
+### 4.4 Gradio UI
+
+Access OCR functionality through an intuitive browser interface:
+
+1. **Online Demo:**
+   Try the hosted version at [Hugging Face Spaces](https://huggingface.co/spaces/skynet1010/LangChain-OCR-Playground) without any installation.
+
+2. **Local Deployment:**
+   Configure the environment variables in `gradio_ui/.env` and`run the Gradio app:
+   ```bash
+   cd gradio_ui
+   poetry install --no-root
+   set -a
+   source .env
+   set +a
+   cd src/gradio_ui
+   python app.py
    ```
 
 ## 5. Contributing
